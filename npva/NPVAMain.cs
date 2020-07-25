@@ -333,5 +333,43 @@ namespace npva
         }
 
         #endregion
+
+        #region コンテキストメニュー
+
+        /// <summary>
+        /// 詳細ビュー用・表示前
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmenuDetailList_Opening(object sender, CancelEventArgs e)
+        {
+            //作品/日付単一選択でなければ部位別PV表示は非表示
+            if ((dlvTitleInfo.ArrangedTitle != null) && (dlvTitleInfo.SelectedDayScore == null))
+            {
+                e.Cancel = true;
+            }
+        }
+
+        /// <summary>
+        /// 部分別PV表示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmenuBrowsePartPv_Click(object sender, EventArgs e)
+        {
+            var t = dlvTitleInfo.ArrangedTitle;
+
+            var d = dlvTitleInfo.SelectedDayScore;
+            if ((t != null) && (d != null))
+            {
+                var day = d.Date.ToString("yyyy-MM-dd");
+                var url = $"https://kasasagi.hinaproject.com/access/chapter/ncode/{t.ID}/?date={day}";
+                System.Diagnostics.Process.Start(url);
+            }
+        }
+
+        #endregion
+
+
     }
 }

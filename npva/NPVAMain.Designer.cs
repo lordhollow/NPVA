@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NPVAMain));
             this.spLR = new System.Windows.Forms.SplitContainer();
             this.pL = new System.Windows.Forms.Panel();
@@ -61,6 +62,8 @@
             this.lblSizeInfo = new System.Windows.Forms.Label();
             this.lblUpdateInfo = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.cmenuDetailList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmenuBrowsePartPv = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.spLR)).BeginInit();
             this.spLR.Panel1.SuspendLayout();
             this.spLR.Panel2.SuspendLayout();
@@ -76,6 +79,7 @@
             this.spChartLR.Panel2.SuspendLayout();
             this.spChartLR.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.cmenuDetailList.SuspendLayout();
             this.SuspendLayout();
             // 
             // spLR
@@ -287,6 +291,7 @@
             // 
             // dlvTitleInfo
             // 
+            this.dlvTitleInfo.ContextMenuStrip = this.cmenuDetailList;
             this.dlvTitleInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dlvTitleInfo.Location = new System.Drawing.Point(3, 3);
             this.dlvTitleInfo.Name = "dlvTitleInfo";
@@ -419,6 +424,21 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "TITLE";
             // 
+            // cmenuDetailList
+            // 
+            this.cmenuDetailList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmenuBrowsePartPv});
+            this.cmenuDetailList.Name = "cmenuDetailList";
+            this.cmenuDetailList.Size = new System.Drawing.Size(214, 26);
+            this.cmenuDetailList.Opening += new System.ComponentModel.CancelEventHandler(this.cmenuDetailList_Opening);
+            // 
+            // cmenuBrowsePartPv
+            // 
+            this.cmenuBrowsePartPv.Name = "cmenuBrowsePartPv";
+            this.cmenuBrowsePartPv.Size = new System.Drawing.Size(213, 22);
+            this.cmenuBrowsePartPv.Text = "(browser)この日の部分別Pv";
+            this.cmenuBrowsePartPv.Click += new System.EventHandler(this.cmenuBrowsePartPv_Click);
+            // 
             // NPVAMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -448,6 +468,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spChartLR)).EndInit();
             this.spChartLR.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.cmenuDetailList.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -486,6 +507,8 @@
         private System.Windows.Forms.ColumnHeader chValue;
         private System.Windows.Forms.ColumnHeader chMarkreDate;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ContextMenuStrip cmenuDetailList;
+        private System.Windows.Forms.ToolStripMenuItem cmenuBrowsePartPv;
     }
 }
 

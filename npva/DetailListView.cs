@@ -29,6 +29,9 @@ namespace npva
         /// <param name=""></param>
         public void Arrange(DB.Author author)
         {
+            ArrangedAuthor = author;
+            ArrangedTitle = null;
+
             chDate.Text = "Title";
             lvDisplay.Items.Clear();
             lvDisplay.SuspendLayout();
@@ -48,6 +51,9 @@ namespace npva
         /// <param name="title"></param>
         public void Arrange(DB.Title title)
         {
+            ArrangedAuthor = null;
+            ArrangedTitle = title;
+
             chDate.Text = "Date";
             lvDisplay.Items.Clear();
             lvDisplay.SuspendLayout();
@@ -80,6 +86,31 @@ namespace npva
         }
 
         /// <summary>
+        /// 表示中のユーザー(作品表示中はNULL)
+        /// </summary>
+        public DB.Author ArrangedAuthor { get; private set; }
+
+        /// <summary>
+        /// 表示中の作品(ユーザー表示中はNULL)
+        /// </summary>
+        public DB.Title ArrangedTitle { get; private set; }
+
+        /// <summary>
+        /// 選ばれしもの
+        /// </summary>
+        public DB.DailyScore SelectedDayScore
+        {
+            get
+            {
+                if (lvDisplay.SelectedItems.Count == 1)
+                {
+                    return lvDisplay.SelectedItems[0].Tag as DB.DailyScore;
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 1項目分追加
         /// </summary>
         /// <param name="pv">PVデータを含むやつ</param>
@@ -87,6 +118,8 @@ namespace npva
         /// <param name="item">追加する対象ンリストビューアイテム</param>
         private static void registorScoreInfo(DB.DailyScore pv, DB.DailyScore score, ListViewItem item)
         {
+            item.Tag = score;
+
             if (pv != null)
             {
                 item.SubItems.Add($"{pv.PC:#,0}({pv.PCUnique})");
