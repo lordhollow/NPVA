@@ -75,6 +75,7 @@
     <Compile Include="Chart\Series.cs" />
     <Compile Include="DB\Author.cs" />
     <Compile Include="DB\DailyScore.cs" />
+    <Compile Include="DB\PartPv.cs" />
     <Compile Include="DB\Title.cs" />
     <Compile Include="DetailListView.cs">
       <SubType>UserControl</SubType>

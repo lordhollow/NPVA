@@ -50,6 +50,22 @@ namespace npva
         }
 
         /// <summary>
+        /// オリジナルの作品データ
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns>見つからなかったらNULL</returns>
+        /// <remarks>
+        /// UIデータはauthorInfoのCloneを利用するのを基本とするが、
+        /// 全体でなく作品単位で更新などをしようとするとき、更新できなくなってしまうので、
+        /// それを解決するためにこれを使ってauthorInfoの同一作品を得てそれを使う。
+        /// 同一性はNコードで見ている。
+        /// </remarks>
+        public DB.Title getOriginalTitle(DB.Title t)
+        {
+            return authorInfo.Titles.Find(x => x.ID == t.ID);
+        }
+
+        /// <summary>
         /// 分析開始
         /// </summary>
         public event EventHandler AnalyzingStart;
@@ -301,6 +317,66 @@ namespace npva
                 }
                 var narou = new NarouAPI();
                 var useKasasagi = narou.UpdatePVData(title, year, month, useCache);
+                if (useKasasagi)
+                {
+                    LastKasasagiDate = DateTime.Now;
+                }
+            });
+        }
+
+        /// <summary>
+        /// 部分別PV取得(全日程）
+        /// </summary>
+        /// <param name="title"></param>
+        public void AnalyzePartPv(DB.Title title)
+        {
+            AnalyzingLockContext(() =>
+            {
+                foreach(var s in title.Score)
+                {
+                    if (!s.PartPvChecked && (s.PageView!=0))
+                    {
+                        AnalyzePartPv(title, s);
+                    }
+                }
+            });
+        }
+
+        /// <summary>
+        /// 部分別PV取得
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        public void AnalyzePartPv(DB.Title title, int year, int month, int day)
+        {
+            //複数の操作に分かれるものではないのでロックしない
+            var daily = title.GetScore(new DateTime(year, month, day));
+            AnalyzePartPv(title, daily);
+        }
+
+        /// <summary>
+        /// 部分別PV取得
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="daily"></param>
+        public void AnalyzePartPv(DB.Title title, DB.DailyScore daily)
+        {
+            AnalyzingLockContext(() =>
+            {
+                if ((daily == null) || (daily.PageView == 0) || (daily.Series == 1)) return;   //見るまでもないやつ(PV=0または1話しかない)
+                if (daily.PartPvChecked) return;    //取得済みならもうしない
+
+                var waitFor = LastKasasagiDate.AddSeconds(KasasagiIntervalSec);
+                var waitMsec = (waitFor - DateTime.Now).TotalMilliseconds;
+                if (waitMsec > 0)
+                {
+                    DebugReport.Log(this, $"kasasagi wait {waitMsec}");
+                    System.Threading.Thread.Sleep((int)waitMsec);
+                }
+                var narou = new NarouAPI();
+                var useKasasagi = narou.GetPartPvData(title, daily);
                 if (useKasasagi)
                 {
                     LastKasasagiDate = DateTime.Now;

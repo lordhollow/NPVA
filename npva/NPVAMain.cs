@@ -332,6 +332,23 @@ namespace npva
             updateList();
         }
 
+        /// <summary>
+        /// 部分別PV取得
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdUpdatePPV_Click(object sender, EventArgs e)
+        {
+            var t = dlvTitleInfo.ArrangedTitle;
+            if (t != null)
+            {
+                t = analyzer.getOriginalTitle(t);
+                analyzer.AnalyzePartPv(t);
+                analyzer.Save();
+                updateList();
+            }
+        }
+
         #endregion
 
         #region コンテキストメニュー

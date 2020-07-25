@@ -28,7 +28,10 @@ namespace npva
         public string UserAgent = "NPVAnalyzer 0.01";
         /// <summary>Kasasgiが処理中で結果を得られなかったときに入っている文字列</summary>
         public string PreparingMarker = "<meta http-equiv=\"refresh\"";
-
+        /// <summary>Kasasagiで部位別PVを出すときのベースアドレス</summary>
+        public string KasasagiPartPv = "https://kasasagi.hinaproject.com/access/chapter/ncode/";   // "(ncode)/?date=(yyyy-MM-dd)";
+        /// <summary>部位別PVがまだ準備されていない(昨日)のやつだ</summary>
+        public string PartPvNotPreparedMarker = "<p class=\"attention\">解析対象外です。</p><!-- attention -->";
         /// <summary>キャッシュ保存フォルダ</summary>
         public readonly string CachePath = Path.Combine(Application.StartupPath, "cache/");
 
@@ -231,7 +234,7 @@ namespace npva
                 if (html == null)
                 {
                     useKasasagi = true;
-                    html = RequestKasasagi(cacheFile, apiUrl);
+                    html = RequestKasasagi(cacheFile, apiUrl, x => x.Contains(PreparingMarker));
                 }
 
                 //パースする
@@ -246,7 +249,7 @@ namespace npva
         /// <param name="cacheFile"></param>
         /// <param name="apiUrl"></param>
         /// <returns></returns>
-        private string RequestKasasagi(string cacheFile, string apiUrl)
+        private string RequestKasasagi(string cacheFile, string apiUrl, Func<string, bool> error)
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("User-Agent", UserAgent);
@@ -255,10 +258,11 @@ namespace npva
             {
                 var contentReadTask = task.Result.Content.ReadAsStringAsync();
                 var html = contentReadTask.Result;
-                if (html.Contains(PreparingMarker))
+                if (error(html))
                 {
                     //この時はキャッシュ保存しない
                     DebugReport.Log(this, $"kasasagi failed {apiUrl}");
+                    return "";
                 }
                 else
                 {
@@ -358,6 +362,66 @@ namespace npva
                         tempPv.SmartPhone = pv;
                     }
                     break;
+            }
+        }
+
+        /// <summary>
+        /// 部位別PVデータ取得
+        /// </summary>
+        /// <param name="title">どの作品の</param>
+        /// <param name="daily">いつ？</param>
+        /// <remarks>
+        /// ユニークが出てからしか更新されず、以降データ変動しない(と思われる）ので常にキャッシュが有効。
+        /// そもそもPVがない日は取れないので、当日のScoreがないときは何もせずに帰る。
+        /// </remarks>
+        public bool GetPartPvData(DB.Title title, DB.DailyScore daily)
+        {
+            if (title == null) return false;
+            if (daily == null) return false;
+            var date = daily.Date;
+
+            bool useKasasagi = false;
+            var dt = date.ToString("yyyy-MM-dd");
+            var url = $"{KasasagiPartPv}{title.ID}/?date={dt}";
+            var cacheFile = $"KasasagiP{title.ID}{date.Year:0000}{date.Month:00}{date.Day:00}.html";
+            cacheFile = Path.Combine(CachePath, cacheFile);
+
+            string html = null;
+            if (File.Exists(cacheFile))
+            {
+                html = File.ReadAllText(cacheFile);
+            }
+            if (html == null)
+            {
+                useKasasagi = true;
+                html = RequestKasasagi(cacheFile, url, x => x.Contains(PreparingMarker) || x.Contains(PartPvNotPreparedMarker));
+            }
+
+            //パースする
+            parsePartPvHTML(daily, html);
+
+            return useKasasagi;
+        }
+
+        /// <summary>
+        /// 部分別PVを解析
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="date"></param>
+        /// <param name="html"></param>
+        private void parsePartPvHTML(DB.DailyScore score, string html)
+        {
+            if (string.IsNullOrEmpty(html)) return;
+            score.PartPv = new List<DB.PartPv>();
+            score.PartPvChecked = true;
+            var reg = new Regex(@">第(\d+)部分:(\d+)人");
+
+            MatchCollection ms = reg.Matches(html);
+            foreach(Match m in ms)
+            {
+                var p = int.Parse(m.Groups[1].Value);
+                var pv = int.Parse(m.Groups[2].Value);
+                score.PartPv.Add(new DB.PartPv { Part = p, PageView = pv });
             }
         }
     }

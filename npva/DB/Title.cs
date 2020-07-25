@@ -60,6 +60,16 @@ namespace npva.DB
         public List<DailyScore> Score { get; set; } = new List<DailyScore>();
 
         /// <summary>
+        /// この日のスコアを参照
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public DailyScore GetScore(DateTime d)
+        {
+            return Score.Find(x => x.Date.Date == d.Date);
+        }
+
+        /// <summary>
         /// 最終スコア情報
         /// </summary>
         public DailyScore LatestScore { get { return Score.FindLast(x => x.HasScoreInfo); } }

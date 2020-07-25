@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using System.Collections.Generic;
+
 
 namespace npva.DB
 {
@@ -67,6 +69,18 @@ namespace npva.DB
         /// </summary>
         public int UniquePageView { get { return PCUnique + MobileUnique + SmartPhoneUnique; } }
 
+        /// <summary>
+        /// 部分別PV取得済み？
+        /// </summary>
+        [XmlAttribute("ppv")]
+        [DefaultValue(false)]
+        public bool PartPvChecked { get; set; }
+
+        /// <summary>
+        /// 部分別PV
+        /// </summary>
+        [XmlElement("part")]
+        public List<PartPv> PartPv { get; set; } = new List<PartPv>();
 
         // 以下は、データ更新を行った日の分だけしかデータがない
 
