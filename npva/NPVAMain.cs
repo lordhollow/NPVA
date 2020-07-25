@@ -28,6 +28,11 @@ namespace npva
         /// </summary>
         TabPage chartTab = null;
 
+        /// <summary>
+        /// 部分別タブ(非表示の時一時的にここに避難する)
+        /// </summary>
+        TabPage partTab = null;
+
         public NPVAMain()
         {
             InitializeComponent();
@@ -40,6 +45,10 @@ namespace npva
         /// <param name="e"></param>
         private void NPVAMain_Load(object sender, EventArgs e)
         {
+            //初期状態で表示されないタブ
+            RemoveChartTab();
+            RemovePartTab();
+
             //アナライザー
             analyzer = new Analyzer();
             analyzer.AnalyzingStart += Analyzer_AnalyzingStart;
@@ -158,6 +167,15 @@ namespace npva
             startAnalyze(title);
             dlvTitleInfo.Arrange(title);
             chartDrawer.Arrange(title, cmbChartType.SelectedItem as Chart.ChartConstructor);
+            if(title.Score.Find(x=>x.PartPvChecked)!=null)
+            {
+                RestorePartTab();
+                showPartPv(title);
+            }
+            else
+            {
+                RemovePartTab();
+            }
         }
 
         /// <summary>
@@ -174,6 +192,7 @@ namespace npva
             lblSizeInfo.Text = $"{current.Titles.Count} 作投稿済み,  計 {totalSize:#,0} 文字, {totalPoints:#,0} pt.";
 
             RemoveChartTab();
+            RemovePartTab();
             dlvTitleInfo.Arrange(current);
         }
 
@@ -201,6 +220,38 @@ namespace npva
         }
 
         /// <summary>
+        /// 部分別PV表示
+        /// </summary>
+        /// <param name="title"></param>
+        private void showPartPv(DB.Title title)
+        {
+            var pv = new Dictionary<int, int>();
+            foreach (var score in title.Score.Where(x => x.PartPvChecked))
+            {
+                foreach(var p in score.PartPv)
+                {
+                    if (pv.ContainsKey(p.Part))
+                    {
+                        pv[p.Part] += p.PageView;
+                    }
+                    else
+                    {
+                        pv[p.Part] = p.PageView;
+                    }
+                }
+            }
+            lvPartPv.Items.Clear();
+            lvPartPv.Columns.Clear();
+            lvPartPv.Columns.Add("部分");
+            lvPartPv.Columns.Add("合計PV");
+            foreach (var p in pv.OrderBy(x=>x.Key))
+            {
+                var lst = lvPartPv.Items.Add($"第{p.Key}部分");
+                lst.SubItems.Add($"{p.Value:#,0}人");
+            }
+        }
+
+        /// <summary>
         /// チャートタブ非表示
         /// </summary>
         private void RemoveChartTab()
@@ -221,6 +272,30 @@ namespace npva
             {
                 tabInfo.TabPages.Add(chartTab);
                 chartTab = null;
+            }
+        }
+
+        /// <summary>
+        /// 部分別タブ非表示
+        /// </summary>
+        private void RemovePartTab()
+        {
+            if (partTab == null)
+            {
+                partTab = tpPart;
+                tabInfo.TabPages.Remove(partTab);
+            }
+        }
+
+        /// <summary>
+        /// 部分別タブ表示
+        /// </summary>
+        private void RestorePartTab()
+        {
+            if (partTab != null)
+            {
+                tabInfo.TabPages.Add(partTab);
+                partTab = null;
             }
         }
 

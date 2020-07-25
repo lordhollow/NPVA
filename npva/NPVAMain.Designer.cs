@@ -65,6 +65,9 @@
             this.cmdUpdatePPV = new System.Windows.Forms.ToolStripButton();
             this.dlvTitleInfo = new npva.DetailListView();
             this.chartDrawer = new npva.Chart.Drawer.GDIDrawSurface();
+            this.tpPart = new System.Windows.Forms.TabPage();
+            this.lvPartPv = new System.Windows.Forms.ListView();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.spLR)).BeginInit();
             this.spLR.Panel1.SuspendLayout();
             this.spLR.Panel2.SuspendLayout();
@@ -81,6 +84,7 @@
             this.spChartLR.SuspendLayout();
             this.panel1.SuspendLayout();
             this.cmenuDetailList.SuspendLayout();
+            this.tpPart.SuspendLayout();
             this.SuspendLayout();
             // 
             // spLR
@@ -274,6 +278,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabInfo.Controls.Add(this.tpList);
             this.tabInfo.Controls.Add(this.tpChart);
+            this.tabInfo.Controls.Add(this.tpPart);
             this.tabInfo.Location = new System.Drawing.Point(10, 78);
             this.tabInfo.Name = "tabInfo";
             this.tabInfo.SelectedIndex = 0;
@@ -452,6 +457,37 @@
             this.chartDrawer.Size = new System.Drawing.Size(639, 321);
             this.chartDrawer.TabIndex = 0;
             // 
+            // tpPart
+            // 
+            this.tpPart.Controls.Add(this.lvPartPv);
+            this.tpPart.Controls.Add(this.panel2);
+            this.tpPart.Location = new System.Drawing.Point(4, 22);
+            this.tpPart.Name = "tpPart";
+            this.tpPart.Padding = new System.Windows.Forms.Padding(3);
+            this.tpPart.Size = new System.Drawing.Size(851, 351);
+            this.tpPart.TabIndex = 2;
+            this.tpPart.Text = "部分別PV";
+            this.tpPart.UseVisualStyleBackColor = true;
+            // 
+            // lvPartPv
+            // 
+            this.lvPartPv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvPartPv.HideSelection = false;
+            this.lvPartPv.Location = new System.Drawing.Point(3, 40);
+            this.lvPartPv.Name = "lvPartPv";
+            this.lvPartPv.Size = new System.Drawing.Size(845, 308);
+            this.lvPartPv.TabIndex = 0;
+            this.lvPartPv.UseCompatibleStateImageBehavior = false;
+            this.lvPartPv.View = System.Windows.Forms.View.Details;
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(845, 37);
+            this.panel2.TabIndex = 1;
+            // 
             // NPVAMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -482,6 +518,7 @@
             this.spChartLR.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.cmenuDetailList.ResumeLayout(false);
+            this.tpPart.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -523,6 +560,9 @@
         private System.Windows.Forms.ContextMenuStrip cmenuDetailList;
         private System.Windows.Forms.ToolStripMenuItem cmenuBrowsePartPv;
         private System.Windows.Forms.ToolStripButton cmdUpdatePPV;
+        private System.Windows.Forms.TabPage tpPart;
+        private System.Windows.Forms.ListView lvPartPv;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 
