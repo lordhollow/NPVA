@@ -186,7 +186,14 @@ namespace npva
             if (current == null) return;
 
             lblTitle.Text = $"{current.Name}({current.ID})";
-            lblUpdateInfo.Text = $"{current.CheckedDate} 時点 当日情報";
+            if (dlvTitleInfo.AuthorSummaryDiffDays > 0)
+            {
+                lblUpdateInfo.Text = $"{current.CheckedDate} 時点 当日Pv+{dlvTitleInfo.AuthorSummaryDiffDays}日前とのスコア差分";
+            }
+            else
+            {
+                lblUpdateInfo.Text = $"{current.CheckedDate} 時点 当日Pv+スコア";
+            }
             var totalSize = current.Titles.Sum(t => t.LatestScore?.Size);
             var totalPoints = current.Titles.Sum(t => t.LatestScore?.Points);
             lblSizeInfo.Text = $"{current.Titles.Count} 作投稿済み,  計 {totalSize:#,0} 文字, {totalPoints:#,0} pt.";

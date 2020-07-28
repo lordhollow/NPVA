@@ -139,6 +139,18 @@ namespace npva.DB
         public int VoteScore { get; set; } = NoData;
 
         /// <summary>
+        /// 平均評価点
+        /// </summary>
+        public double VoteAverage
+        {
+            get
+            {
+                return Votes <= 0 ? 0 : VoteScore / (Votes * 2.0);
+
+            }
+        }
+
+        /// <summary>
         /// ブックマークの数
         /// </summary>
         [XmlAttribute("f")]

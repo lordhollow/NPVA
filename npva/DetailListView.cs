@@ -16,6 +16,15 @@ namespace npva
     public partial class DetailListView : UserControl
     {
         /// <summary>
+        /// 著者表示時に何日前のデータとの比較を表示するか
+        /// </summary>
+        /// <remarks>
+        /// 0以下の時はその日のデータをそのまま表示。
+        /// </remarks>
+        public int AuthorSummaryDiffDays = 7;
+
+
+        /// <summary>
         /// 初期化
         /// </summary>
         public DetailListView()
@@ -39,7 +48,8 @@ namespace npva
             {
                 var item = new ListViewItem($"{title.ID} {title.Name}");
                 var score = title.LatestScore;
-                if (score != null) registorScoreInfo(score, score, item);
+                var scoreD = AuthorSummaryDiffDays <= 0 ? null : title.GetScore(score.Date.AddDays(-1 * AuthorSummaryDiffDays));
+                if (score != null) registorScoreInfo(score, score, scoreD, item);
                 lvDisplay.Items.Add(item);
             }
             lvDisplay.ResumeLayout();
@@ -70,7 +80,7 @@ namespace npva
                     SmartPhoneUnique = title.Score.Sum(x => x.SmartPhoneUnique)
                 };
                 var score = title.LatestScore;
-                registorScoreInfo(pv, score, item);
+                registorScoreInfo(pv, score, null, item);
 
                 lvDisplay.Items.Add(item);
             }
@@ -78,7 +88,7 @@ namespace npva
             foreach (var score in (title.Score as IEnumerable<DB.DailyScore>).Reverse())
             {
                 var item = new ListViewItem(score.Date.ToString("yyyy/MM/dd"));
-                registorScoreInfo(score, score, item);
+                registorScoreInfo(score, score, null, item);
                 lvDisplay.Items.Add(item);
             }
 
@@ -116,7 +126,7 @@ namespace npva
         /// <param name="pv">PVデータを含むやつ</param>
         /// <param name="score">スコアデータを含むやつ</param>
         /// <param name="item">追加する対象ンリストビューアイテム</param>
-        private static void registorScoreInfo(DB.DailyScore pv, DB.DailyScore score, ListViewItem item)
+        private static void registorScoreInfo(DB.DailyScore pv, DB.DailyScore score, DB.DailyScore diffScore, ListViewItem item)
         {
             item.Tag = score;
 
@@ -137,26 +147,45 @@ namespace npva
             }
             if (score.HasScoreInfo)
             {
-                if (score.Votes == 0)
+                if ((diffScore == null) || (!diffScore.HasScoreInfo))
                 {
-                    item.SubItems.Add("none");
+                    if (score.Votes == 0)
+                    {
+                        item.SubItems.Add("none");
+                    }
+                    else
+                    {
+                        var voteScore = score.VoteAverage;
+                        item.SubItems.Add($"{voteScore:0.0}({score.Votes}人)");
+                    }
+                    item.SubItems.Add($"{score.Bookmarks}");
+                    item.SubItems.Add($"{score.Impressions}");
+                    item.SubItems.Add($"{score.Reviews}");
+                    item.SubItems.Add($"{score.DailyPoint}");
+                    item.SubItems.Add($"{score.WeeklyPoint}");
+                    item.SubItems.Add($"{score.MonthlyPoint}");
+                    item.SubItems.Add($"{score.QuarterPoint}");
+                    item.SubItems.Add($"{score.YearPoint}");
+                    item.SubItems.Add($"{score.Points}");
+                    item.SubItems.Add($"{score.Series}");
+                    item.SubItems.Add($"{score.Size:#,0}");
                 }
                 else
                 {
-                    var voteScore = score.VoteScore / (score.Votes * 2.0);
-                    item.SubItems.Add($"{voteScore:0.0}x{score.Votes}");
+                    var signed = "+#,0;-#,0; ";
+                    item.SubItems.Add($"{(score.VoteAverage - diffScore.VoteAverage).ToString("+#,0.0;-#,0.0")}({(score.Votes - diffScore.Votes).ToString("+#,0;-#,0;±0")}人)");
+                    item.SubItems.Add($"{(score.Bookmarks - diffScore.Bookmarks).ToString(signed)}");
+                    item.SubItems.Add($"{(score.Impressions - diffScore.Impressions).ToString(signed)}");
+                    item.SubItems.Add($"{(score.Reviews - diffScore.Reviews).ToString(signed)}");
+                    item.SubItems.Add($"{(score.DailyPoint - diffScore.DailyPoint).ToString(signed)}");
+                    item.SubItems.Add($"{(score.WeeklyPoint - diffScore.WeeklyPoint).ToString(signed)}");
+                    item.SubItems.Add($"{(score.MonthlyPoint - diffScore.MonthlyPoint).ToString(signed)}");
+                    item.SubItems.Add($"{(score.QuarterPoint - diffScore.QuarterPoint).ToString(signed)}");
+                    item.SubItems.Add($"{(score.YearPoint - diffScore.YearPoint).ToString(signed)}");
+                    item.SubItems.Add($"{(score.Points - diffScore.Points).ToString(signed)}");
+                    item.SubItems.Add($"{(score.Series - diffScore.Series).ToString(signed)}");
+                    item.SubItems.Add($"{(score.Size - diffScore.Size).ToString(signed)}");
                 }
-                item.SubItems.Add($"{score.Bookmarks}");
-                item.SubItems.Add($"{score.Impressions}");
-                item.SubItems.Add($"{score.Reviews}");
-                item.SubItems.Add($"{score.DailyPoint}");
-                item.SubItems.Add($"{score.WeeklyPoint}");
-                item.SubItems.Add($"{score.MonthlyPoint}");
-                item.SubItems.Add($"{score.QuarterPoint}");
-                item.SubItems.Add($"{score.YearPoint}");
-                item.SubItems.Add($"{score.Points}");
-                item.SubItems.Add($"{score.Series}");
-                item.SubItems.Add($"{score.Size:#,0}");
             }
         }
     }
