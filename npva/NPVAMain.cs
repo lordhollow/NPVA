@@ -70,6 +70,16 @@ namespace npva
                 cmbUserId.Items.Add(aid);
             }
 
+            //ユーザーの初期表示
+            var defaultAuthor = Properties.Settings.Default.StartupAuthor;
+            if (analyzer.StoredAuthorInfo.Contains(defaultAuthor))
+            {
+                cmbUserId.Text = defaultAuthor;
+                analyzer.Load(defaultAuthor);
+                updateList();
+
+            }
+
             //設定変更時イベント
             Properties.Settings.Default.SettingsSaving += Default_SettingsSaving;
         }
