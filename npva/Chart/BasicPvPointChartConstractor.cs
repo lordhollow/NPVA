@@ -87,11 +87,11 @@ namespace npva.Chart
 
             //系列
             var sPv = new SimpleSeries() { Color = Parameter.PageViewColor };
-            if (!MovingAvg) chart.ArrangeSeries(AxisType.YLeft, sPv);
+            if (!MovingAvg && !Parameter.ExcludePV) chart.ArrangeSeries(AxisType.YLeft, sPv);
             var sUPv = new SimpleSeries() { Color = Parameter.UniquePageViewColor };
-            if (!MovingAvg) chart.ArrangeSeries(AxisType.YLeft, sUPv);
+            if (!MovingAvg && !Parameter.ExcludeUnique) chart.ArrangeSeries(AxisType.YLeft, sUPv);
             var sPt = new SimpleSeries() { Color = Parameter.PointColor };
-            chart.ArrangeSeries(AxisType.YRight, sPt);
+            if (!Parameter.ExcludeScore) chart.ArrangeSeries(AxisType.YRight, sPt);
 
             double pv = 0;
             double upv = 0;
@@ -132,16 +132,16 @@ namespace npva.Chart
             if (MovingAvg)
             {
                 //七日間移動平均
-                var avgPV = sPv.GetMovingAverageProjection(MovingAverageSize, false);
+                var avgPV = sPv.GetMovingAverageProjection(MovingAverageSize, Parameter.MovingAverageByLeft);
                 avgPV.Color = Parameter.MovingAvgPageViewColor;
                 //avgPV.Width = 1;
-                chart.ArrangeSeries(AxisType.YLeft, avgPV);
+                if (!Parameter.ExcludePV) chart.ArrangeSeries(AxisType.YLeft, avgPV);
                 avgPvMax = avgPV.FindMax().Value;
 
-                var avgUPV = sUPv.GetMovingAverageProjection(MovingAverageSize, false);
+                var avgUPV = sUPv.GetMovingAverageProjection(MovingAverageSize, Parameter.MovingAverageByLeft);
                 avgUPV.Color = Parameter.MovingAvgUniquePageViewColor;
                 //avgUPV.Width = 1;
-                chart.ArrangeSeries(AxisType.YLeft, avgUPV);
+                if (!Parameter.ExcludeUnique) chart.ArrangeSeries(AxisType.YLeft, avgUPV);
 
             }
 

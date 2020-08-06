@@ -35,5 +35,25 @@ namespace npva.Chart
         /// ユニークページビュー移動平均の色
         /// </summary>
         public Color MovingAvgUniquePageViewColor { get; set; } = Color.SkyBlue;
+
+        /// <summary>
+        /// PVの系列を含めない
+        /// </summary>
+        public bool ExcludePV { get; set; } = false;
+
+        /// <summary>
+        /// ユニークPVの系列を含めない
+        /// </summary>
+        public bool ExcludeUnique { get; set; } = false;
+
+        /// <summary>
+        /// スコアの系列を含めない
+        /// </summary>
+        public bool ExcludeScore { get; set; } = false;
+
+        /// <summary>
+        /// 移動平均を左だけでとる
+        /// </summary>
+        public bool MovingAverageByLeft { get; set; } = false;
     }
 }
