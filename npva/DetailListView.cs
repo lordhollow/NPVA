@@ -23,6 +23,13 @@ namespace npva
         /// </remarks>
         public int AuthorSummaryDiffDays = 7;
 
+        /// <summary>
+        /// 著者表示時にPVを何日前から積算するか
+        /// </summary>
+        /// <remarks>
+        /// 0以下の時は全期間
+        /// </remarks>
+        public int AuthorSummaryPvSums = 0;
 
         /// <summary>
         /// 初期化
@@ -49,7 +56,8 @@ namespace npva
                 var item = new ListViewItem($"{title.ID} {title.Name}");
                 var score = title.LatestScore;
                 var scoreD = AuthorSummaryDiffDays <= 0 ? null : title.GetScore(score.Date.AddDays(-1 * AuthorSummaryDiffDays));
-                if (score != null) registorScoreInfo(score, score, scoreD, item);
+                var pvScore = title.SumUpPv(AuthorSummaryPvSums);
+                if (score != null) registorScoreInfo(pvScore, score, scoreD, item);
                 lvDisplay.Items.Add(item);
             }
             lvDisplay.ResumeLayout();

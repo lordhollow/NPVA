@@ -71,13 +71,13 @@ namespace npva
             }
 
             //ユーザーの初期表示
+            dlvTitleInfo.AuthorSummaryPvSums = Properties.Settings.Default.AuthorSummaryPvLength;
             var defaultAuthor = Properties.Settings.Default.StartupAuthor;
             if (analyzer.StoredAuthorInfo.Contains(defaultAuthor))
             {
                 cmbUserId.Text = defaultAuthor;
                 analyzer.Load(defaultAuthor);
                 updateList();
-
             }
 
             //設定変更時イベント
@@ -91,6 +91,9 @@ namespace npva
         /// <param name="e"></param>
         private void Default_SettingsSaving(object sender, CancelEventArgs e)
         {
+            //著者情報の設定
+            //dlvTitleInfo.AuthorSummaryDiffDays = (no prefference)
+            dlvTitleInfo.AuthorSummaryPvSums = Properties.Settings.Default.AuthorSummaryPvLength;
             // チャートコンストラクタを再生成
             cmbChartType.Items.Clear();
             cmbChartType.Items.AddRange(Chart.ChartConstructor.CreateConstactors().ToArray());
@@ -212,13 +215,19 @@ namespace npva
             if (current == null) return;
 
             lblTitle.Text = $"{current.Name}({current.ID})";
+
+            var PvSums = "全期間";
+            if (dlvTitleInfo.AuthorSummaryPvSums == 0) PvSums = "当日";
+            if (dlvTitleInfo.AuthorSummaryPvSums > 0) PvSums = $"{dlvTitleInfo.AuthorSummaryPvSums}日前からの";
+
+
             if (dlvTitleInfo.AuthorSummaryDiffDays > 0)
             {
-                lblUpdateInfo.Text = $"{current.CheckedDate} 時点 当日Pv+{dlvTitleInfo.AuthorSummaryDiffDays}日前とのスコア差分";
+                lblUpdateInfo.Text = $"{current.CheckedDate} 時点 {PvSums}Pv +{dlvTitleInfo.AuthorSummaryDiffDays}日前とのスコア差分";
             }
             else
             {
-                lblUpdateInfo.Text = $"{current.CheckedDate} 時点 当日Pv+スコア";
+                lblUpdateInfo.Text = $"{current.CheckedDate} 時点 {PvSums}Pv + スコア";
             }
             var totalSize = current.Titles.Sum(t => t.LatestScore?.Size);
             var totalPoints = current.Titles.Sum(t => t.LatestScore?.Points);
