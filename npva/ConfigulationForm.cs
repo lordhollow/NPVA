@@ -12,6 +12,17 @@ namespace npva
 {
     public partial class ConfigulationForm : Form
     {
+        public string[] Authors
+        {
+            get { return cmbStartupAuthor.Items.Cast<string>().ToArray(); }
+            set
+            {
+                cmbStartupAuthor.Items.Clear();
+                cmbStartupAuthor.Items.AddRange(value);
+            }
+        }
+
+
         public ConfigulationForm()
         {
             InitializeComponent();
