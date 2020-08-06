@@ -137,14 +137,14 @@ namespace npva
         private static void registorScoreInfo(DB.DailyScore pv, DB.DailyScore score, DB.DailyScore diffScore, ListViewItem item)
         {
             item.Tag = score;
+            item.UseItemStyleForSubItems = false;
 
             if (pv != null)
             {
-                item.SubItems.Add($"{pv.PC:#,0}({pv.PCUnique})");
-                item.SubItems.Add($"{pv.Mobile:#,0}({pv.MobileUnique})");
-                item.SubItems.Add($"{pv.SmartPhone:#,0}({pv.SmartPhoneUnique})");
-                item.SubItems.Add($"{pv.PageView:#,0}({pv.UniquePageView})");
-
+                setPvColumnData(item, pv.PC, pv.PCUnique);
+                setPvColumnData(item, pv.Mobile, pv.MobileUnique);
+                setPvColumnData(item, pv.SmartPhone, pv.SmartPhoneUnique);
+                setPvColumnData(item, pv.PageView, pv.UniquePageView);
             }
             else
             {
@@ -194,6 +194,27 @@ namespace npva
                     item.SubItems.Add($"{(score.Series - diffScore.Series).ToString(signed)}");
                     item.SubItems.Add($"{(score.Size - diffScore.Size).ToString(signed)}");
                 }
+            }
+        }
+
+        /// <summary>
+        /// PVのセルのデータ設定
+        /// </summary>
+        /// <param name="item">行</param>
+        /// <param name="pv">Pv</param>
+        /// <param name="unique">ユニークPv</param>
+        /// <remarks>
+        /// PV0ならUniqueは非表示＆グレーアウト
+        /// </remarks>
+        private static void setPvColumnData(ListViewItem item, int pv, int unique)
+        {
+            if (pv == 0)
+            {
+                item.SubItems.Add("0").ForeColor = Color.Gray;
+            }
+            else
+            {
+                item.SubItems.Add($"{pv:#,0}({unique})");
             }
         }
     }
