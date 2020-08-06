@@ -439,6 +439,7 @@ namespace npva
         private void cmdPref_Click(object sender, EventArgs e)
         {
             var dlg = new ConfigulationForm();
+            dlg.Authors = analyzer.StoredAuthorInfo.ToArray();
             dlg.ShowDialog();
         }
 
