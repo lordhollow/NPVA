@@ -103,6 +103,32 @@ namespace npva.DB
         public int UniquePageView { get { return Score.Sum(x => x.UniquePageView); } }
 
         /// <summary>
+        /// PVを加算
+        /// </summary>
+        /// <param name="days">何日分？（負なら全部）</param>
+        /// <returns></returns>
+        /// <remarks>加算結果</remarks>
+        public DailyScore SumUpPv(int days)
+        {
+            var score = new DailyScore();
+            var last = days < 0 ? new DateTime() : LatestScore.Date.Date.AddDays(-days);
+            foreach (var s in Score)
+            {
+                if (s.Date.Date >= last)
+                {
+                    score.PC += s.PC;
+                    score.PCUnique += s.PCUnique;
+                    score.Mobile += s.Mobile;
+                    score.MobileUnique += s.MobileUnique;
+                    score.SmartPhone += s.SmartPhone;
+                    score.SmartPhoneUnique += s.SmartPhoneUnique;
+                }
+            }
+            return score;
+        }
+
+
+        /// <summary>
         /// 正規化（Scoreの日付の重複をなくし（後ろ優先）、日付順に並べる）
         /// </summary>
         public void Normalize()
