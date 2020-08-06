@@ -87,7 +87,7 @@ namespace npva
 
         private void chkSummaryAll_CheckedChanged(object sender, EventArgs e)
         {
-            cmbStartupAuthor.Enabled = !chkSummaryAll.Checked;
+            numSummalyLen.Enabled = !chkSummaryAll.Checked;
         }
     }
 }
