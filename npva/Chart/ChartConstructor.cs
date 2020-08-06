@@ -18,28 +18,50 @@ namespace npva.Chart
         /// <returns></returns>
         public static IEnumerable<ChartConstructor> CreateConstactors()
         {
-            yield return new BasicPvPointChartConstractor(true, false);
-            yield return new BasicPvPointChartConstractor(false, false);
-            yield return new BasicPvPointChartConstractor(false, true);
-            yield return new BasicPvPointChartConstractor(false, true) { MovingAverageSize = 30 };
-            yield return new BasicPvPointChartConstractor(false, true) { MovingAverageSize = 90 };
-            yield return new BasicPvPointChartConstractor(false, true) { MovingAverageSize = 180 };
-            yield return new BasicPvPointChartConstractor(false, true) { MovingAverageSize = 365 };
+            var conf = Properties.Settings.Default;
 
-            yield return new BasicPvPointChartConstractor(7, true, false);
-            yield return new BasicPvPointChartConstractor(7, false, false);
-            yield return new BasicPvPointChartConstractor(30, true, false);
-            yield return new BasicPvPointChartConstractor(30, false, false);
-            yield return new BasicPvPointChartConstractor(30, false, true);
-            yield return new BasicPvPointChartConstractor(90, true, false);
-            yield return new BasicPvPointChartConstractor(90, false, false);
-            yield return new BasicPvPointChartConstractor(90, false, true);
-            yield return new BasicPvPointChartConstractor(180, true, false);
-            yield return new BasicPvPointChartConstractor(180, false, false);
-            yield return new BasicPvPointChartConstractor(180, false, true);
-            yield return new BasicPvPointChartConstractor(365, true, false);
-            yield return new BasicPvPointChartConstractor(365, false, false);
-            yield return new BasicPvPointChartConstractor(365, false, true);
+            if (!conf.CCIgnoreAllTime)
+            {
+                if (!conf.CCIgnoreTotalPv) yield return new BasicPvPointChartConstractor(true, false);
+                if (!conf.CCIgnoreDailyPv) yield return new BasicPvPointChartConstractor(false, false);
+                if (!conf.CCIgnoreMovingAverage)
+                {
+                    yield return new BasicPvPointChartConstractor(false, true);
+                    yield return new BasicPvPointChartConstractor(false, true) { MovingAverageSize = 30 };
+                    yield return new BasicPvPointChartConstractor(false, true) { MovingAverageSize = 90 };
+                    yield return new BasicPvPointChartConstractor(false, true) { MovingAverageSize = 180 };
+                    yield return new BasicPvPointChartConstractor(false, true) { MovingAverageSize = 365 };
+                }
+            }
+            if (!conf.CCIgnoreBacklog7)
+            {
+                if (!conf.CCIgnoreTotalPv) yield return new BasicPvPointChartConstractor(7, true, false);
+                if (!conf.CCIgnoreDailyPv) yield return new BasicPvPointChartConstractor(7, false, false);
+            }
+            if (!conf.CCIgnoreBacklog30)
+            {
+                if (!conf.CCIgnoreTotalPv) yield return new BasicPvPointChartConstractor(30, true, false);
+                if (!conf.CCIgnoreDailyPv) yield return new BasicPvPointChartConstractor(30, false, false);
+                if (!conf.CCIgnoreMovingAverage) yield return new BasicPvPointChartConstractor(30, false, true);
+            }
+            if (!conf.CCIgnoreBacklog90)
+            {
+                if (!conf.CCIgnoreTotalPv) yield return new BasicPvPointChartConstractor(90, true, false);
+                if (!conf.CCIgnoreDailyPv) yield return new BasicPvPointChartConstractor(90, false, false);
+                if (!conf.CCIgnoreMovingAverage) yield return new BasicPvPointChartConstractor(90, false, true);
+            }
+            if (!conf.CCIgnoreBacklog180)
+            {
+                if (!conf.CCIgnoreTotalPv) yield return new BasicPvPointChartConstractor(180, true, false);
+                if (!conf.CCIgnoreDailyPv) yield return new BasicPvPointChartConstractor(180, false, false);
+                if (!conf.CCIgnoreMovingAverage) yield return new BasicPvPointChartConstractor(180, false, true);
+            }
+            if (!conf.CCIgnoreBacklog365)
+            {
+                if (!conf.CCIgnoreTotalPv) yield return new BasicPvPointChartConstractor(365, true, false);
+                if (!conf.CCIgnoreDailyPv) yield return new BasicPvPointChartConstractor(365, false, false);
+                if (!conf.CCIgnoreMovingAverage) yield return new BasicPvPointChartConstractor(365, false, true);
+            }
         }
 
         /// <summary>
