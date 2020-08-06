@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -73,6 +74,12 @@
     <Compile Include="Chart\IDrawContext.cs" />
     <Compile Include="Chart\ChartParameter.cs" />
     <Compile Include="Chart\Series.cs" />
+    <Compile Include="ConfigulationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigulationForm.Designer.cs">
+      <DependentUpon>ConfigulationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DB\Author.cs" />
     <Compile Include="DB\DailyScore.cs" />
     <Compile Include="DB\PartPv.cs" />
@@ -112,6 +119,9 @@
     <Compile Include="TitleListEntry.cs" />
     <EmbeddedResource Include="Chart\Drawer\GDIDrawSurface.resx">
       <DependentUpon>GDIDrawSurface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigulationForm.resx">
+      <DependentUpon>ConfigulationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetailListView.resx">
       <DependentUpon>DetailListView.cs</DependentUpon>
