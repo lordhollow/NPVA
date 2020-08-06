@@ -164,6 +164,10 @@ namespace npva.DB
             Score.Add(merge.LatestScore);
 
             //日付を新しいほうにする
+            if (LastUp < merge.LastUp)
+            {
+                LastUp = merge.LastUp;
+            }
             if (LastCheck < merge.LastCheck)
             {
                 LastCheck = merge.LastCheck;
