@@ -61,7 +61,7 @@ namespace npva
 
             //チャートコンストラクタの準備
             cmbChartType.Items.AddRange(Chart.ChartConstructor.CreateConstactors().ToArray());
-            cmbChartType.SelectedIndex = 0;
+            if (cmbChartType.Items.Count > 0) cmbChartType.SelectedIndex = 0;
             cmbChartType.SelectedIndexChanged += (s, a) => redrawChart();
 
             //IDリスト
@@ -69,6 +69,22 @@ namespace npva
             {
                 cmbUserId.Items.Add(aid);
             }
+
+            //設定変更時イベント
+            Properties.Settings.Default.SettingsSaving += Default_SettingsSaving;
+        }
+
+        /// <summary>
+        /// 設定を変更したときの処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Default_SettingsSaving(object sender, CancelEventArgs e)
+        {
+            // チャートコンストラクタを再生成
+            cmbChartType.Items.Clear();
+            cmbChartType.Items.AddRange(Chart.ChartConstructor.CreateConstactors().ToArray());
+            if (cmbChartType.Items.Count > 0) cmbChartType.SelectedIndex = 0;
         }
 
         /// <summary>
