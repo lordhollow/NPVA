@@ -431,6 +431,17 @@ namespace npva
             }
         }
 
+        /// <summary>
+        /// 設定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdPref_Click(object sender, EventArgs e)
+        {
+            var dlg = new ConfigulationForm();
+            dlg.ShowDialog();
+        }
+
         #endregion
 
         #region コンテキストメニュー
@@ -467,8 +478,8 @@ namespace npva
             }
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

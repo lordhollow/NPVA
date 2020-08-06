@@ -37,6 +37,7 @@
             this.cmdExport = new System.Windows.Forms.ToolStripButton();
             this.cmdUpdateAllStoredUser = new System.Windows.Forms.ToolStripButton();
             this.cmdPVReparse = new System.Windows.Forms.ToolStripButton();
+            this.cmdUpdatePPV = new System.Windows.Forms.ToolStripButton();
             this.lblAuthor = new System.Windows.Forms.Label();
             this.cmbSortType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -48,8 +49,12 @@
             this.pR = new System.Windows.Forms.Panel();
             this.tabInfo = new System.Windows.Forms.TabControl();
             this.tpList = new System.Windows.Forms.TabPage();
+            this.dlvTitleInfo = new npva.DetailListView();
+            this.cmenuDetailList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmenuBrowsePartPv = new System.Windows.Forms.ToolStripMenuItem();
             this.tpChart = new System.Windows.Forms.TabPage();
             this.spChartLR = new System.Windows.Forms.SplitContainer();
+            this.chartDrawer = new npva.Chart.Drawer.GDIDrawSurface();
             this.lvAnalyzed = new System.Windows.Forms.ListView();
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -57,17 +62,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmbChartType = new System.Windows.Forms.ComboBox();
-            this.lblSizeInfo = new System.Windows.Forms.Label();
-            this.lblUpdateInfo = new System.Windows.Forms.Label();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.cmenuDetailList = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmenuBrowsePartPv = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmdUpdatePPV = new System.Windows.Forms.ToolStripButton();
-            this.dlvTitleInfo = new npva.DetailListView();
-            this.chartDrawer = new npva.Chart.Drawer.GDIDrawSurface();
             this.tpPart = new System.Windows.Forms.TabPage();
             this.lvPartPv = new System.Windows.Forms.ListView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblSizeInfo = new System.Windows.Forms.Label();
+            this.lblUpdateInfo = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.cmdPref = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.spLR)).BeginInit();
             this.spLR.Panel1.SuspendLayout();
             this.spLR.Panel2.SuspendLayout();
@@ -77,13 +78,13 @@
             this.pR.SuspendLayout();
             this.tabInfo.SuspendLayout();
             this.tpList.SuspendLayout();
+            this.cmenuDetailList.SuspendLayout();
             this.tpChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spChartLR)).BeginInit();
             this.spChartLR.Panel1.SuspendLayout();
             this.spChartLR.Panel2.SuspendLayout();
             this.spChartLR.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.cmenuDetailList.SuspendLayout();
             this.tpPart.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,7 +130,8 @@
             this.cmdExport,
             this.cmdUpdateAllStoredUser,
             this.cmdPVReparse,
-            this.cmdUpdatePPV});
+            this.cmdUpdatePPV,
+            this.cmdPref});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Size = new System.Drawing.Size(221, 25);
@@ -179,6 +181,17 @@
             this.cmdPVReparse.Text = "Reparse";
             this.cmdPVReparse.ToolTipText = "全PVデータを再取得します。キャッシュがあればキャッシュのみ参照し、kasasagiへのアクセスは行いません。";
             this.cmdPVReparse.Click += new System.EventHandler(this.cmdPVReparse_Click);
+            // 
+            // cmdUpdatePPV
+            // 
+            this.cmdUpdatePPV.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cmdUpdatePPV.Image = ((System.Drawing.Image)(resources.GetObject("cmdUpdatePPV.Image")));
+            this.cmdUpdatePPV.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdUpdatePPV.Name = "cmdUpdatePPV";
+            this.cmdUpdatePPV.Size = new System.Drawing.Size(23, 22);
+            this.cmdUpdatePPV.Text = "日別PV取得";
+            this.cmdUpdatePPV.Visible = false;
+            this.cmdUpdatePPV.Click += new System.EventHandler(this.cmdUpdatePPV_Click);
             // 
             // lblAuthor
             // 
@@ -296,6 +309,30 @@
             this.tpList.Text = "List";
             this.tpList.UseVisualStyleBackColor = true;
             // 
+            // dlvTitleInfo
+            // 
+            this.dlvTitleInfo.ContextMenuStrip = this.cmenuDetailList;
+            this.dlvTitleInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dlvTitleInfo.Location = new System.Drawing.Point(3, 3);
+            this.dlvTitleInfo.Name = "dlvTitleInfo";
+            this.dlvTitleInfo.Size = new System.Drawing.Size(845, 345);
+            this.dlvTitleInfo.TabIndex = 0;
+            // 
+            // cmenuDetailList
+            // 
+            this.cmenuDetailList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmenuBrowsePartPv});
+            this.cmenuDetailList.Name = "cmenuDetailList";
+            this.cmenuDetailList.Size = new System.Drawing.Size(214, 26);
+            this.cmenuDetailList.Opening += new System.ComponentModel.CancelEventHandler(this.cmenuDetailList_Opening);
+            // 
+            // cmenuBrowsePartPv
+            // 
+            this.cmenuBrowsePartPv.Name = "cmenuBrowsePartPv";
+            this.cmenuBrowsePartPv.Size = new System.Drawing.Size(213, 22);
+            this.cmenuBrowsePartPv.Text = "(browser)この日の部分別Pv";
+            this.cmenuBrowsePartPv.Click += new System.EventHandler(this.cmenuBrowsePartPv_Click);
+            // 
             // tpChart
             // 
             this.tpChart.Controls.Add(this.spChartLR);
@@ -327,6 +364,14 @@
             this.spChartLR.Size = new System.Drawing.Size(845, 321);
             this.spChartLR.SplitterDistance = 639;
             this.spChartLR.TabIndex = 0;
+            // 
+            // chartDrawer
+            // 
+            this.chartDrawer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartDrawer.Location = new System.Drawing.Point(0, 0);
+            this.chartDrawer.Name = "chartDrawer";
+            this.chartDrawer.Size = new System.Drawing.Size(639, 321);
+            this.chartDrawer.TabIndex = 0;
             // 
             // lvAnalyzed
             // 
@@ -386,77 +431,6 @@
             this.cmbChartType.Size = new System.Drawing.Size(220, 20);
             this.cmbChartType.TabIndex = 0;
             // 
-            // lblSizeInfo
-            // 
-            this.lblSizeInfo.AutoSize = true;
-            this.lblSizeInfo.Location = new System.Drawing.Point(26, 47);
-            this.lblSizeInfo.Name = "lblSizeInfo";
-            this.lblSizeInfo.Size = new System.Drawing.Size(29, 12);
-            this.lblSizeInfo.TabIndex = 2;
-            this.lblSizeInfo.Text = "話数";
-            // 
-            // lblUpdateInfo
-            // 
-            this.lblUpdateInfo.AutoSize = true;
-            this.lblUpdateInfo.Location = new System.Drawing.Point(26, 33);
-            this.lblUpdateInfo.Name = "lblUpdateInfo";
-            this.lblUpdateInfo.Size = new System.Drawing.Size(53, 12);
-            this.lblUpdateInfo.TabIndex = 1;
-            this.lblUpdateInfo.Text = "更新情報";
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblTitle.Location = new System.Drawing.Point(6, 9);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(55, 24);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "TITLE";
-            // 
-            // cmenuDetailList
-            // 
-            this.cmenuDetailList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmenuBrowsePartPv});
-            this.cmenuDetailList.Name = "cmenuDetailList";
-            this.cmenuDetailList.Size = new System.Drawing.Size(214, 26);
-            this.cmenuDetailList.Opening += new System.ComponentModel.CancelEventHandler(this.cmenuDetailList_Opening);
-            // 
-            // cmenuBrowsePartPv
-            // 
-            this.cmenuBrowsePartPv.Name = "cmenuBrowsePartPv";
-            this.cmenuBrowsePartPv.Size = new System.Drawing.Size(213, 22);
-            this.cmenuBrowsePartPv.Text = "(browser)この日の部分別Pv";
-            this.cmenuBrowsePartPv.Click += new System.EventHandler(this.cmenuBrowsePartPv_Click);
-            // 
-            // cmdUpdatePPV
-            // 
-            this.cmdUpdatePPV.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cmdUpdatePPV.Image = ((System.Drawing.Image)(resources.GetObject("cmdUpdatePPV.Image")));
-            this.cmdUpdatePPV.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cmdUpdatePPV.Name = "cmdUpdatePPV";
-            this.cmdUpdatePPV.Size = new System.Drawing.Size(23, 22);
-            this.cmdUpdatePPV.Text = "日別PV取得";
-            this.cmdUpdatePPV.Visible = false;
-            this.cmdUpdatePPV.Click += new System.EventHandler(this.cmdUpdatePPV_Click);
-            // 
-            // dlvTitleInfo
-            // 
-            this.dlvTitleInfo.ContextMenuStrip = this.cmenuDetailList;
-            this.dlvTitleInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dlvTitleInfo.Location = new System.Drawing.Point(3, 3);
-            this.dlvTitleInfo.Name = "dlvTitleInfo";
-            this.dlvTitleInfo.Size = new System.Drawing.Size(845, 345);
-            this.dlvTitleInfo.TabIndex = 0;
-            // 
-            // chartDrawer
-            // 
-            this.chartDrawer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartDrawer.Location = new System.Drawing.Point(0, 0);
-            this.chartDrawer.Name = "chartDrawer";
-            this.chartDrawer.Size = new System.Drawing.Size(639, 321);
-            this.chartDrawer.TabIndex = 0;
-            // 
             // tpPart
             // 
             this.tpPart.Controls.Add(this.lvPartPv);
@@ -488,6 +462,44 @@
             this.panel2.Size = new System.Drawing.Size(845, 37);
             this.panel2.TabIndex = 1;
             // 
+            // lblSizeInfo
+            // 
+            this.lblSizeInfo.AutoSize = true;
+            this.lblSizeInfo.Location = new System.Drawing.Point(26, 47);
+            this.lblSizeInfo.Name = "lblSizeInfo";
+            this.lblSizeInfo.Size = new System.Drawing.Size(29, 12);
+            this.lblSizeInfo.TabIndex = 2;
+            this.lblSizeInfo.Text = "話数";
+            // 
+            // lblUpdateInfo
+            // 
+            this.lblUpdateInfo.AutoSize = true;
+            this.lblUpdateInfo.Location = new System.Drawing.Point(26, 33);
+            this.lblUpdateInfo.Name = "lblUpdateInfo";
+            this.lblUpdateInfo.Size = new System.Drawing.Size(53, 12);
+            this.lblUpdateInfo.TabIndex = 1;
+            this.lblUpdateInfo.Text = "更新情報";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTitle.Location = new System.Drawing.Point(6, 9);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(55, 24);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "TITLE";
+            // 
+            // cmdPref
+            // 
+            this.cmdPref.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cmdPref.Image = ((System.Drawing.Image)(resources.GetObject("cmdPref.Image")));
+            this.cmdPref.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdPref.Name = "cmdPref";
+            this.cmdPref.Size = new System.Drawing.Size(23, 22);
+            this.cmdPref.Text = "設定";
+            this.cmdPref.Click += new System.EventHandler(this.cmdPref_Click);
+            // 
             // NPVAMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -510,6 +522,7 @@
             this.pR.PerformLayout();
             this.tabInfo.ResumeLayout(false);
             this.tpList.ResumeLayout(false);
+            this.cmenuDetailList.ResumeLayout(false);
             this.tpChart.ResumeLayout(false);
             this.spChartLR.Panel1.ResumeLayout(false);
             this.spChartLR.Panel2.ResumeLayout(false);
@@ -517,7 +530,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.spChartLR)).EndInit();
             this.spChartLR.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.cmenuDetailList.ResumeLayout(false);
             this.tpPart.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -563,6 +575,7 @@
         private System.Windows.Forms.TabPage tpPart;
         private System.Windows.Forms.ListView lvPartPv;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripButton cmdPref;
     }
 }
 
