@@ -132,16 +132,9 @@ namespace npva
             }
             else
             {
-                if (enable)
-                {
-                    lblStatus.Text = "待機中";
-                    btnUpdate.Enabled = true;
-                }
-                else
-                {
-                    btnUpdate.Enabled = false;
-                    lblStatus.Text = "更新中";
-                }
+                lblStatus.Text = enable ? "待機中" : "更新中";
+                btnUpdate.Enabled = enable;
+                cmbUserId.Enabled = enable;
             }
         }
 
