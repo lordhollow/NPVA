@@ -132,13 +132,13 @@ namespace npva.Chart
             if (MovingAvg)
             {
                 //七日間移動平均
-                var avgPV = sPv.GetMovingAverageProjection(MovingAverageSize);
+                var avgPV = sPv.GetMovingAverageProjection(MovingAverageSize, false);
                 avgPV.Color = Parameter.MovingAvgPageViewColor;
                 //avgPV.Width = 1;
                 chart.ArrangeSeries(AxisType.YLeft, avgPV);
                 avgPvMax = avgPV.FindMax().Value;
 
-                var avgUPV = sUPv.GetMovingAverageProjection(MovingAverageSize);
+                var avgUPV = sUPv.GetMovingAverageProjection(MovingAverageSize, false);
                 avgUPV.Color = Parameter.MovingAvgUniquePageViewColor;
                 //avgUPV.Width = 1;
                 chart.ArrangeSeries(AxisType.YLeft, avgUPV);

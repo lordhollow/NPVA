@@ -121,18 +121,38 @@ namespace npva.Chart
         /// <remarks>
         /// 現時点では簡単のためにkey値ではなく系列データのサイズを指定するようにしています
         /// </remarks>
-        public SimpleSeries GetMovingAverageProjection(int size)
+        public SimpleSeries GetMovingAverageProjection(int size, bool leftOnly)
         {
             var series = new SimpleSeries();
             for (var i = 0; i < items.Count; i++)
             {
-                var avg = getMovingAverage(i, size);
+                var avg = leftOnly ? getMovingAverageLeft(i, size) : getMovingAverage(i, size);
                 if (avg != null)
                 {
                     series.Add(items[i].Key, avg.Value);
                 }
             }
             return series;
+        }
+
+        /// <summary>
+        /// とある区間の移動平均（左側サンプル）
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        double? getMovingAverageLeft(int pos, int size)
+        {
+            //範囲外NULL
+            if (pos < size) return null;
+            if (pos > items.Count) return null;
+
+            var sum = 0.0;
+            for (var i = 0; i < size; i++)
+            {
+                sum += items[pos - i].Value;
+            }
+            return sum / size;
         }
 
         /// <summary>
