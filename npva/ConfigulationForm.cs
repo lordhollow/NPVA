@@ -55,7 +55,7 @@ namespace npva
             //Chart
             chkChartIgnorePV.Checked = conf.ChartExcludePV;
             chkChartIgnoreUnique.Checked = conf.ChartExcludeUnique;
-            chkChartIgnoreScore.Checked = conf.ChartExcludeUnique;
+            chkChartIgnoreScore.Checked = conf.ChartExcludeScore;
             chkChartMALeft.Checked = conf.MovingAverageByLeft;
         }
 
@@ -77,7 +77,7 @@ namespace npva
             //Chart
             conf.ChartExcludePV = chkChartIgnorePV.Checked;
             conf.ChartExcludeUnique = chkChartIgnoreUnique.Checked;
-            conf.ChartExcludeUnique = chkChartIgnoreScore.Checked;
+            conf.ChartExcludeScore = chkChartIgnoreScore.Checked;
             conf.MovingAverageByLeft = chkChartMALeft.Checked;
 
             conf.Save();
