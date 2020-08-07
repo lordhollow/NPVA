@@ -382,6 +382,39 @@ namespace npva
             updateList();
         }
 
+        /// <summary>
+        /// チャートの保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnChartSaveAs_Click(object sender, EventArgs e)
+        {
+            var ofd = new SaveFileDialog();
+            ofd.OverwritePrompt = true;
+            ofd.Filter = "PNGファイル(*.png)|*.png";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                var f = ofd.FileName;
+                var conf = Properties.Settings.Default;
+                if (conf.ChartSaveAsIs)
+                {
+                    chartDrawer.SaveImage(f);
+                }
+                else
+                {
+                    var constractor = cmbChartType.SelectedItem as Chart.ChartConstructor;
+                    if (constractor != null)
+                    {
+                        chartDrawer.SaveImage(constractor, f, conf.ChartSaveWidth, conf.ChartSaveHeight);
+                    }
+                    else
+                    {
+                        MessageBox.Show("グラフが選択されていません");
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region ツールバーボタン

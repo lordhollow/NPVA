@@ -31,7 +31,7 @@ namespace npva.Chart.Drawer
         /// <summary>
         /// 描画手段（GDI）
         /// </summary>
-        GDIDrawContext drawContext;
+        GDIDrawContext drawContext = new GDIDrawContext();
 
         /// <summary>
         /// バックサーフェス
@@ -77,6 +77,37 @@ namespace npva.Chart.Drawer
         }
 
         /// <summary>
+        /// 画像を保存する(見たまま)
+        /// </summary>
+        /// <param name="f"></param>
+        public void SaveImage(string f)
+        {
+            backSurface.Save(f, System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+        /// <summary>
+        /// 保存時のサイズ指定
+        /// </summary>
+        /// <param name="f"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        public void SaveImage(ChartConstructor constractor, string f, int w, int h)
+        {
+            //今表示している内容に悪影響を及ぼさないようにゼロから構築して保存
+            var bmp = new Bitmap(w, h);
+            var d = new GDIDrawContext();
+            var g = Graphics.FromImage(bmp);
+            var c = ChartFactory.CreateChart();
+
+            constractor.ConstractChart(c, title);
+            c.Resize(w, h);
+            d.ClientRect = new RectangleF(0, 0, w, h);
+            d.PaintHandler(g);
+            c.Draw(d);
+            bmp.Save(f, System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+        /// <summary>
         /// ロード時初期化
         /// </summary>
         /// <param name="sender"></param>
@@ -96,10 +127,6 @@ namespace npva.Chart.Drawer
         {
             if (chart == null) return;
             //ここからグラフの更新
-            if (drawContext == null)
-            {
-                drawContext = new GDIDrawContext();
-            }
             drawContext.ClientRect = new RectangleF(0, 0, Width, Height);
             drawContext.PaintHandler(backSurfaceGraphics);
             chart.Draw(drawContext);

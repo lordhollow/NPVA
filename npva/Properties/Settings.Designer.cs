@@ -214,5 +214,41 @@ namespace npva.Properties {
                 this["ChartExcludeScore"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ChartSaveAsIs {
+            get {
+                return ((bool)(this["ChartSaveAsIs"]));
+            }
+            set {
+                this["ChartSaveAsIs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("640")]
+        public int ChartSaveWidth {
+            get {
+                return ((int)(this["ChartSaveWidth"]));
+            }
+            set {
+                this["ChartSaveWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("480")]
+        public int ChartSaveHeight {
+            get {
+                return ((int)(this["ChartSaveHeight"]));
+            }
+            set {
+                this["ChartSaveHeight"] = value;
+            }
+        }
     }
 }

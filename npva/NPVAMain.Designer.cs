@@ -38,6 +38,7 @@
             this.cmdUpdateAllStoredUser = new System.Windows.Forms.ToolStripButton();
             this.cmdPVReparse = new System.Windows.Forms.ToolStripButton();
             this.cmdUpdatePPV = new System.Windows.Forms.ToolStripButton();
+            this.cmdPref = new System.Windows.Forms.ToolStripButton();
             this.lblAuthor = new System.Windows.Forms.Label();
             this.cmbSortType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -68,7 +69,7 @@
             this.lblSizeInfo = new System.Windows.Forms.Label();
             this.lblUpdateInfo = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.cmdPref = new System.Windows.Forms.ToolStripButton();
+            this.btnChartSaveAs = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.spLR)).BeginInit();
             this.spLR.Panel1.SuspendLayout();
             this.spLR.Panel2.SuspendLayout();
@@ -192,6 +193,16 @@
             this.cmdUpdatePPV.Text = "日別PV取得";
             this.cmdUpdatePPV.Visible = false;
             this.cmdUpdatePPV.Click += new System.EventHandler(this.cmdUpdatePPV_Click);
+            // 
+            // cmdPref
+            // 
+            this.cmdPref.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cmdPref.Image = ((System.Drawing.Image)(resources.GetObject("cmdPref.Image")));
+            this.cmdPref.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdPref.Name = "cmdPref";
+            this.cmdPref.Size = new System.Drawing.Size(23, 22);
+            this.cmdPref.Text = "設定";
+            this.cmdPref.Click += new System.EventHandler(this.cmdPref_Click);
             // 
             // lblAuthor
             // 
@@ -415,6 +426,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnChartSaveAs);
             this.panel1.Controls.Add(this.cmbChartType);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -490,15 +502,15 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "TITLE";
             // 
-            // cmdPref
+            // btnChartSaveAs
             // 
-            this.cmdPref.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cmdPref.Image = ((System.Drawing.Image)(resources.GetObject("cmdPref.Image")));
-            this.cmdPref.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cmdPref.Name = "cmdPref";
-            this.cmdPref.Size = new System.Drawing.Size(23, 22);
-            this.cmdPref.Text = "設定";
-            this.cmdPref.Click += new System.EventHandler(this.cmdPref_Click);
+            this.btnChartSaveAs.Location = new System.Drawing.Point(249, 3);
+            this.btnChartSaveAs.Name = "btnChartSaveAs";
+            this.btnChartSaveAs.Size = new System.Drawing.Size(75, 18);
+            this.btnChartSaveAs.TabIndex = 1;
+            this.btnChartSaveAs.Text = "SaveAs";
+            this.btnChartSaveAs.UseVisualStyleBackColor = true;
+            this.btnChartSaveAs.Click += new System.EventHandler(this.btnChartSaveAs_Click);
             // 
             // NPVAMain
             // 
@@ -576,6 +588,7 @@
         private System.Windows.Forms.ListView lvPartPv;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripButton cmdPref;
+        private System.Windows.Forms.Button btnChartSaveAs;
     }
 }
 
