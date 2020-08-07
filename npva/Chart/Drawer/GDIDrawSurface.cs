@@ -34,6 +34,17 @@ namespace npva.Chart.Drawer
         GDIDrawContext drawContext;
 
         /// <summary>
+        /// バックサーフェス
+        /// </summary>
+        Bitmap backSurface;
+
+        /// <summary>
+        /// バックサーフェスGDI
+        /// </summary>
+        Graphics backSurfaceGraphics;
+
+
+        /// <summary>
         /// タイトル設定
         /// </summary>
         /// <param name="constractor">チャート構築アルゴリズム</param>
@@ -72,7 +83,8 @@ namespace npva.Chart.Drawer
         /// <param name="e"></param>
         private void GDIDrawSurface_Load(object sender, EventArgs e)
         {
-            //特になし
+            backSurface = new Bitmap(ClientSize.Width, ClientSize.Height);
+            backSurfaceGraphics = Graphics.FromImage(backSurface);
         }
 
         /// <summary>
@@ -89,8 +101,9 @@ namespace npva.Chart.Drawer
                 drawContext = new GDIDrawContext();
             }
             drawContext.ClientRect = new RectangleF(0, 0, Width, Height);
-            drawContext.PaintHandler(e.Graphics);
+            drawContext.PaintHandler(backSurfaceGraphics);
             chart.Draw(drawContext);
+            e.Graphics.DrawImage(backSurface, new Point());
         }
 
         /// <summary>
@@ -102,6 +115,8 @@ namespace npva.Chart.Drawer
         {
             if (chart != null)
             {
+                backSurface = new Bitmap(ClientSize.Width, ClientSize.Height);
+                backSurfaceGraphics = Graphics.FromImage(backSurface);
                 chart.Resize(ClientSize.Width, ClientSize.Height);
                 Invalidate(ClientRectangle);
             }
