@@ -57,6 +57,10 @@ namespace npva
             chkChartIgnoreUnique.Checked = conf.ChartExcludeUnique;
             chkChartIgnoreScore.Checked = conf.ChartExcludeScore;
             chkChartMALeft.Checked = conf.MovingAverageByLeft;
+            //ChartSave
+            if (conf.ChartSaveAsIs) rbChartSaveAsIs.Checked = true; else rbChartSaveSized.Checked = true;
+            numChartSaveW.Value = conf.ChartSaveWidth;
+            numChartSaveH.Value = conf.ChartSaveHeight;
         }
 
         private void Commit()
@@ -79,6 +83,10 @@ namespace npva
             conf.ChartExcludeUnique = chkChartIgnoreUnique.Checked;
             conf.ChartExcludeScore = chkChartIgnoreScore.Checked;
             conf.MovingAverageByLeft = chkChartMALeft.Checked;
+            //ChartSave
+            conf.ChartSaveAsIs = rbChartSaveAsIs.Checked;
+            conf.ChartSaveWidth = (int)numChartSaveW.Value;
+            conf.ChartSaveHeight = (int)numChartSaveH.Value;
 
             conf.Save();
         }

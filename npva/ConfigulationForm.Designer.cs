@@ -35,24 +35,34 @@
             this.chkSummaryAll = new System.Windows.Forms.CheckBox();
             this.cmbStartupAuthor = new System.Windows.Forms.ComboBox();
             this.gbChartConstractor = new System.Windows.Forms.GroupBox();
-            this.chkCCIgnoreMovingAvg = new System.Windows.Forms.CheckBox();
-            this.chkCCIgnoreTotal = new System.Windows.Forms.CheckBox();
-            this.chkCCIgnoreDaily = new System.Windows.Forms.CheckBox();
-            this.chkCCIgnoreBacklog7 = new System.Windows.Forms.CheckBox();
-            this.chkCCIgnoreBacklog30 = new System.Windows.Forms.CheckBox();
-            this.chkCCIgnoreBacklog90 = new System.Windows.Forms.CheckBox();
-            this.chkCCIgnoreBacklog180 = new System.Windows.Forms.CheckBox();
-            this.chkCCIgnoreBacklog365 = new System.Windows.Forms.CheckBox();
             this.chkCCIgnoreAllTime = new System.Windows.Forms.CheckBox();
+            this.chkCCIgnoreBacklog365 = new System.Windows.Forms.CheckBox();
+            this.chkCCIgnoreBacklog180 = new System.Windows.Forms.CheckBox();
+            this.chkCCIgnoreBacklog90 = new System.Windows.Forms.CheckBox();
+            this.chkCCIgnoreBacklog30 = new System.Windows.Forms.CheckBox();
+            this.chkCCIgnoreBacklog7 = new System.Windows.Forms.CheckBox();
+            this.chkCCIgnoreDaily = new System.Windows.Forms.CheckBox();
+            this.chkCCIgnoreTotal = new System.Windows.Forms.CheckBox();
+            this.chkCCIgnoreMovingAvg = new System.Windows.Forms.CheckBox();
             this.gbChart = new System.Windows.Forms.GroupBox();
-            this.chkChartIgnorePV = new System.Windows.Forms.CheckBox();
-            this.chkChartIgnoreUnique = new System.Windows.Forms.CheckBox();
-            this.chkChartIgnoreScore = new System.Windows.Forms.CheckBox();
             this.chkChartMALeft = new System.Windows.Forms.CheckBox();
+            this.chkChartIgnoreScore = new System.Windows.Forms.CheckBox();
+            this.chkChartIgnoreUnique = new System.Windows.Forms.CheckBox();
+            this.chkChartIgnorePV = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
+            this.gbChartSave = new System.Windows.Forms.GroupBox();
+            this.rbChartSaveAsIs = new System.Windows.Forms.RadioButton();
+            this.rbChartSaveSized = new System.Windows.Forms.RadioButton();
+            this.numChartSaveW = new System.Windows.Forms.NumericUpDown();
+            this.numChartSaveH = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numSummalyLen)).BeginInit();
             this.gbChartConstractor.SuspendLayout();
             this.gbChart.SuspendLayout();
+            this.gbChartSave.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numChartSaveW)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numChartSaveH)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -131,75 +141,15 @@
             this.gbChartConstractor.TabStop = false;
             this.gbChartConstractor.Text = "チャートの候補";
             // 
-            // chkCCIgnoreMovingAvg
+            // chkCCIgnoreAllTime
             // 
-            this.chkCCIgnoreMovingAvg.AutoSize = true;
-            this.chkCCIgnoreMovingAvg.Location = new System.Drawing.Point(423, 18);
-            this.chkCCIgnoreMovingAvg.Name = "chkCCIgnoreMovingAvg";
-            this.chkCCIgnoreMovingAvg.Size = new System.Drawing.Size(173, 16);
-            this.chkCCIgnoreMovingAvg.TabIndex = 0;
-            this.chkCCIgnoreMovingAvg.Text = "PV移動平均チャートを含めない";
-            this.chkCCIgnoreMovingAvg.UseVisualStyleBackColor = true;
-            // 
-            // chkCCIgnoreTotal
-            // 
-            this.chkCCIgnoreTotal.AutoSize = true;
-            this.chkCCIgnoreTotal.Location = new System.Drawing.Point(6, 18);
-            this.chkCCIgnoreTotal.Name = "chkCCIgnoreTotal";
-            this.chkCCIgnoreTotal.Size = new System.Drawing.Size(149, 16);
-            this.chkCCIgnoreTotal.TabIndex = 1;
-            this.chkCCIgnoreTotal.Text = "累計PVチャートを含めない";
-            this.chkCCIgnoreTotal.UseVisualStyleBackColor = true;
-            // 
-            // chkCCIgnoreDaily
-            // 
-            this.chkCCIgnoreDaily.AutoSize = true;
-            this.chkCCIgnoreDaily.Location = new System.Drawing.Point(208, 18);
-            this.chkCCIgnoreDaily.Name = "chkCCIgnoreDaily";
-            this.chkCCIgnoreDaily.Size = new System.Drawing.Size(149, 16);
-            this.chkCCIgnoreDaily.TabIndex = 2;
-            this.chkCCIgnoreDaily.Text = "日別PVチャートを含めない";
-            this.chkCCIgnoreDaily.UseVisualStyleBackColor = true;
-            // 
-            // chkCCIgnoreBacklog7
-            // 
-            this.chkCCIgnoreBacklog7.AutoSize = true;
-            this.chkCCIgnoreBacklog7.Location = new System.Drawing.Point(6, 42);
-            this.chkCCIgnoreBacklog7.Name = "chkCCIgnoreBacklog7";
-            this.chkCCIgnoreBacklog7.Size = new System.Drawing.Size(140, 16);
-            this.chkCCIgnoreBacklog7.TabIndex = 7;
-            this.chkCCIgnoreBacklog7.Text = "7日間チャートを含めない";
-            this.chkCCIgnoreBacklog7.UseVisualStyleBackColor = true;
-            // 
-            // chkCCIgnoreBacklog30
-            // 
-            this.chkCCIgnoreBacklog30.AutoSize = true;
-            this.chkCCIgnoreBacklog30.Location = new System.Drawing.Point(208, 42);
-            this.chkCCIgnoreBacklog30.Name = "chkCCIgnoreBacklog30";
-            this.chkCCIgnoreBacklog30.Size = new System.Drawing.Size(146, 16);
-            this.chkCCIgnoreBacklog30.TabIndex = 8;
-            this.chkCCIgnoreBacklog30.Text = "30日間チャートを含めない";
-            this.chkCCIgnoreBacklog30.UseVisualStyleBackColor = true;
-            // 
-            // chkCCIgnoreBacklog90
-            // 
-            this.chkCCIgnoreBacklog90.AutoSize = true;
-            this.chkCCIgnoreBacklog90.Location = new System.Drawing.Point(423, 42);
-            this.chkCCIgnoreBacklog90.Name = "chkCCIgnoreBacklog90";
-            this.chkCCIgnoreBacklog90.Size = new System.Drawing.Size(146, 16);
-            this.chkCCIgnoreBacklog90.TabIndex = 9;
-            this.chkCCIgnoreBacklog90.Text = "90日間チャートを含めない";
-            this.chkCCIgnoreBacklog90.UseVisualStyleBackColor = true;
-            // 
-            // chkCCIgnoreBacklog180
-            // 
-            this.chkCCIgnoreBacklog180.AutoSize = true;
-            this.chkCCIgnoreBacklog180.Location = new System.Drawing.Point(6, 66);
-            this.chkCCIgnoreBacklog180.Name = "chkCCIgnoreBacklog180";
-            this.chkCCIgnoreBacklog180.Size = new System.Drawing.Size(152, 16);
-            this.chkCCIgnoreBacklog180.TabIndex = 10;
-            this.chkCCIgnoreBacklog180.Text = "180日間チャートを含めない";
-            this.chkCCIgnoreBacklog180.UseVisualStyleBackColor = true;
+            this.chkCCIgnoreAllTime.AutoSize = true;
+            this.chkCCIgnoreAllTime.Location = new System.Drawing.Point(423, 66);
+            this.chkCCIgnoreAllTime.Name = "chkCCIgnoreAllTime";
+            this.chkCCIgnoreAllTime.Size = new System.Drawing.Size(146, 16);
+            this.chkCCIgnoreAllTime.TabIndex = 12;
+            this.chkCCIgnoreAllTime.Text = "全期間チャートを含めない";
+            this.chkCCIgnoreAllTime.UseVisualStyleBackColor = true;
             // 
             // chkCCIgnoreBacklog365
             // 
@@ -211,15 +161,75 @@
             this.chkCCIgnoreBacklog365.Text = "365日間チャートを含めない";
             this.chkCCIgnoreBacklog365.UseVisualStyleBackColor = true;
             // 
-            // chkCCIgnoreAllTime
+            // chkCCIgnoreBacklog180
             // 
-            this.chkCCIgnoreAllTime.AutoSize = true;
-            this.chkCCIgnoreAllTime.Location = new System.Drawing.Point(423, 66);
-            this.chkCCIgnoreAllTime.Name = "chkCCIgnoreAllTime";
-            this.chkCCIgnoreAllTime.Size = new System.Drawing.Size(146, 16);
-            this.chkCCIgnoreAllTime.TabIndex = 12;
-            this.chkCCIgnoreAllTime.Text = "全期間チャートを含めない";
-            this.chkCCIgnoreAllTime.UseVisualStyleBackColor = true;
+            this.chkCCIgnoreBacklog180.AutoSize = true;
+            this.chkCCIgnoreBacklog180.Location = new System.Drawing.Point(6, 66);
+            this.chkCCIgnoreBacklog180.Name = "chkCCIgnoreBacklog180";
+            this.chkCCIgnoreBacklog180.Size = new System.Drawing.Size(152, 16);
+            this.chkCCIgnoreBacklog180.TabIndex = 10;
+            this.chkCCIgnoreBacklog180.Text = "180日間チャートを含めない";
+            this.chkCCIgnoreBacklog180.UseVisualStyleBackColor = true;
+            // 
+            // chkCCIgnoreBacklog90
+            // 
+            this.chkCCIgnoreBacklog90.AutoSize = true;
+            this.chkCCIgnoreBacklog90.Location = new System.Drawing.Point(423, 42);
+            this.chkCCIgnoreBacklog90.Name = "chkCCIgnoreBacklog90";
+            this.chkCCIgnoreBacklog90.Size = new System.Drawing.Size(146, 16);
+            this.chkCCIgnoreBacklog90.TabIndex = 9;
+            this.chkCCIgnoreBacklog90.Text = "90日間チャートを含めない";
+            this.chkCCIgnoreBacklog90.UseVisualStyleBackColor = true;
+            // 
+            // chkCCIgnoreBacklog30
+            // 
+            this.chkCCIgnoreBacklog30.AutoSize = true;
+            this.chkCCIgnoreBacklog30.Location = new System.Drawing.Point(208, 42);
+            this.chkCCIgnoreBacklog30.Name = "chkCCIgnoreBacklog30";
+            this.chkCCIgnoreBacklog30.Size = new System.Drawing.Size(146, 16);
+            this.chkCCIgnoreBacklog30.TabIndex = 8;
+            this.chkCCIgnoreBacklog30.Text = "30日間チャートを含めない";
+            this.chkCCIgnoreBacklog30.UseVisualStyleBackColor = true;
+            // 
+            // chkCCIgnoreBacklog7
+            // 
+            this.chkCCIgnoreBacklog7.AutoSize = true;
+            this.chkCCIgnoreBacklog7.Location = new System.Drawing.Point(6, 42);
+            this.chkCCIgnoreBacklog7.Name = "chkCCIgnoreBacklog7";
+            this.chkCCIgnoreBacklog7.Size = new System.Drawing.Size(140, 16);
+            this.chkCCIgnoreBacklog7.TabIndex = 7;
+            this.chkCCIgnoreBacklog7.Text = "7日間チャートを含めない";
+            this.chkCCIgnoreBacklog7.UseVisualStyleBackColor = true;
+            // 
+            // chkCCIgnoreDaily
+            // 
+            this.chkCCIgnoreDaily.AutoSize = true;
+            this.chkCCIgnoreDaily.Location = new System.Drawing.Point(208, 18);
+            this.chkCCIgnoreDaily.Name = "chkCCIgnoreDaily";
+            this.chkCCIgnoreDaily.Size = new System.Drawing.Size(149, 16);
+            this.chkCCIgnoreDaily.TabIndex = 2;
+            this.chkCCIgnoreDaily.Text = "日別PVチャートを含めない";
+            this.chkCCIgnoreDaily.UseVisualStyleBackColor = true;
+            // 
+            // chkCCIgnoreTotal
+            // 
+            this.chkCCIgnoreTotal.AutoSize = true;
+            this.chkCCIgnoreTotal.Location = new System.Drawing.Point(6, 18);
+            this.chkCCIgnoreTotal.Name = "chkCCIgnoreTotal";
+            this.chkCCIgnoreTotal.Size = new System.Drawing.Size(149, 16);
+            this.chkCCIgnoreTotal.TabIndex = 1;
+            this.chkCCIgnoreTotal.Text = "累計PVチャートを含めない";
+            this.chkCCIgnoreTotal.UseVisualStyleBackColor = true;
+            // 
+            // chkCCIgnoreMovingAvg
+            // 
+            this.chkCCIgnoreMovingAvg.AutoSize = true;
+            this.chkCCIgnoreMovingAvg.Location = new System.Drawing.Point(423, 18);
+            this.chkCCIgnoreMovingAvg.Name = "chkCCIgnoreMovingAvg";
+            this.chkCCIgnoreMovingAvg.Size = new System.Drawing.Size(173, 16);
+            this.chkCCIgnoreMovingAvg.TabIndex = 0;
+            this.chkCCIgnoreMovingAvg.Text = "PV移動平均チャートを含めない";
+            this.chkCCIgnoreMovingAvg.UseVisualStyleBackColor = true;
             // 
             // gbChart
             // 
@@ -234,25 +244,15 @@
             this.gbChart.TabStop = false;
             this.gbChart.Text = "チャートの表示";
             // 
-            // chkChartIgnorePV
+            // chkChartMALeft
             // 
-            this.chkChartIgnorePV.AutoSize = true;
-            this.chkChartIgnorePV.Location = new System.Drawing.Point(6, 18);
-            this.chkChartIgnorePV.Name = "chkChartIgnorePV";
-            this.chkChartIgnorePV.Size = new System.Drawing.Size(75, 16);
-            this.chkChartIgnorePV.TabIndex = 0;
-            this.chkChartIgnorePV.Text = "PV非表示";
-            this.chkChartIgnorePV.UseVisualStyleBackColor = true;
-            // 
-            // chkChartIgnoreUnique
-            // 
-            this.chkChartIgnoreUnique.AutoSize = true;
-            this.chkChartIgnoreUnique.Location = new System.Drawing.Point(208, 18);
-            this.chkChartIgnoreUnique.Name = "chkChartIgnoreUnique";
-            this.chkChartIgnoreUnique.Size = new System.Drawing.Size(112, 16);
-            this.chkChartIgnoreUnique.TabIndex = 1;
-            this.chkChartIgnoreUnique.Text = "ユニークPV非表示";
-            this.chkChartIgnoreUnique.UseVisualStyleBackColor = true;
+            this.chkChartMALeft.AutoSize = true;
+            this.chkChartMALeft.Location = new System.Drawing.Point(6, 42);
+            this.chkChartMALeft.Name = "chkChartMALeft";
+            this.chkChartMALeft.Size = new System.Drawing.Size(160, 16);
+            this.chkChartMALeft.TabIndex = 3;
+            this.chkChartMALeft.Text = "移動平均を左側のみで算出";
+            this.chkChartMALeft.UseVisualStyleBackColor = true;
             // 
             // chkChartIgnoreScore
             // 
@@ -264,19 +264,29 @@
             this.chkChartIgnoreScore.Text = "累計スコア非表示";
             this.chkChartIgnoreScore.UseVisualStyleBackColor = true;
             // 
-            // chkChartMALeft
+            // chkChartIgnoreUnique
             // 
-            this.chkChartMALeft.AutoSize = true;
-            this.chkChartMALeft.Location = new System.Drawing.Point(6, 42);
-            this.chkChartMALeft.Name = "chkChartMALeft";
-            this.chkChartMALeft.Size = new System.Drawing.Size(160, 16);
-            this.chkChartMALeft.TabIndex = 3;
-            this.chkChartMALeft.Text = "移動平均を左側のみで算出";
-            this.chkChartMALeft.UseVisualStyleBackColor = true;
+            this.chkChartIgnoreUnique.AutoSize = true;
+            this.chkChartIgnoreUnique.Location = new System.Drawing.Point(208, 18);
+            this.chkChartIgnoreUnique.Name = "chkChartIgnoreUnique";
+            this.chkChartIgnoreUnique.Size = new System.Drawing.Size(112, 16);
+            this.chkChartIgnoreUnique.TabIndex = 1;
+            this.chkChartIgnoreUnique.Text = "ユニークPV非表示";
+            this.chkChartIgnoreUnique.UseVisualStyleBackColor = true;
+            // 
+            // chkChartIgnorePV
+            // 
+            this.chkChartIgnorePV.AutoSize = true;
+            this.chkChartIgnorePV.Location = new System.Drawing.Point(6, 18);
+            this.chkChartIgnorePV.Name = "chkChartIgnorePV";
+            this.chkChartIgnorePV.Size = new System.Drawing.Size(75, 16);
+            this.chkChartIgnorePV.TabIndex = 0;
+            this.chkChartIgnorePV.Text = "PV非表示";
+            this.chkChartIgnorePV.UseVisualStyleBackColor = true;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(541, 271);
+            this.btnOK.Location = new System.Drawing.Point(541, 312);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 8;
@@ -284,11 +294,91 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // gbChartSave
+            // 
+            this.gbChartSave.Controls.Add(this.label5);
+            this.gbChartSave.Controls.Add(this.label4);
+            this.gbChartSave.Controls.Add(this.numChartSaveH);
+            this.gbChartSave.Controls.Add(this.numChartSaveW);
+            this.gbChartSave.Controls.Add(this.rbChartSaveSized);
+            this.gbChartSave.Controls.Add(this.rbChartSaveAsIs);
+            this.gbChartSave.Location = new System.Drawing.Point(20, 259);
+            this.gbChartSave.Name = "gbChartSave";
+            this.gbChartSave.Size = new System.Drawing.Size(606, 39);
+            this.gbChartSave.TabIndex = 9;
+            this.gbChartSave.TabStop = false;
+            this.gbChartSave.Text = "チャートの画像保存";
+            // 
+            // rbChartSaveAsIs
+            // 
+            this.rbChartSaveAsIs.AutoSize = true;
+            this.rbChartSaveAsIs.Location = new System.Drawing.Point(6, 17);
+            this.rbChartSaveAsIs.Name = "rbChartSaveAsIs";
+            this.rbChartSaveAsIs.Size = new System.Drawing.Size(86, 16);
+            this.rbChartSaveAsIs.TabIndex = 0;
+            this.rbChartSaveAsIs.TabStop = true;
+            this.rbChartSaveAsIs.Text = "見たまま保存";
+            this.rbChartSaveAsIs.UseVisualStyleBackColor = true;
+            // 
+            // rbChartSaveSized
+            // 
+            this.rbChartSaveSized.AutoSize = true;
+            this.rbChartSaveSized.Location = new System.Drawing.Point(208, 17);
+            this.rbChartSaveSized.Name = "rbChartSaveSized";
+            this.rbChartSaveSized.Size = new System.Drawing.Size(76, 16);
+            this.rbChartSaveSized.TabIndex = 1;
+            this.rbChartSaveSized.TabStop = true;
+            this.rbChartSaveSized.Text = "サイズ指定";
+            this.rbChartSaveSized.UseVisualStyleBackColor = true;
+            // 
+            // numChartSaveW
+            // 
+            this.numChartSaveW.Location = new System.Drawing.Point(367, 14);
+            this.numChartSaveW.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.numChartSaveW.Name = "numChartSaveW";
+            this.numChartSaveW.Size = new System.Drawing.Size(93, 19);
+            this.numChartSaveW.TabIndex = 2;
+            // 
+            // numChartSaveH
+            // 
+            this.numChartSaveH.Location = new System.Drawing.Point(503, 14);
+            this.numChartSaveH.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.numChartSaveH.Name = "numChartSaveH";
+            this.numChartSaveH.Size = new System.Drawing.Size(93, 19);
+            this.numChartSaveH.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(344, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "幅";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(472, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(25, 12);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "高さ";
+            // 
             // ConfigulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 314);
+            this.ClientSize = new System.Drawing.Size(646, 345);
+            this.Controls.Add(this.gbChartSave);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.gbChart);
             this.Controls.Add(this.gbChartConstractor);
@@ -307,6 +397,10 @@
             this.gbChartConstractor.PerformLayout();
             this.gbChart.ResumeLayout(false);
             this.gbChart.PerformLayout();
+            this.gbChartSave.ResumeLayout(false);
+            this.gbChartSave.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numChartSaveW)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numChartSaveH)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,5 +430,12 @@
         private System.Windows.Forms.CheckBox chkChartIgnoreUnique;
         private System.Windows.Forms.CheckBox chkChartIgnorePV;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.GroupBox gbChartSave;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numChartSaveH;
+        private System.Windows.Forms.NumericUpDown numChartSaveW;
+        private System.Windows.Forms.RadioButton rbChartSaveSized;
+        private System.Windows.Forms.RadioButton rbChartSaveAsIs;
     }
 }
