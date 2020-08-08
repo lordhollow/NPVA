@@ -237,7 +237,6 @@ namespace npva
         /// <param name="title"></param>
         private void startAnalyze(DB.Title title)
         {
-            lvAnalyzed.Visible = false;
             lvAnalyzed.Items.Clear();
             lvAnalyzed.Items.AddRange(analyzer.AnalyzeTitle(title).Select(x =>
             {
