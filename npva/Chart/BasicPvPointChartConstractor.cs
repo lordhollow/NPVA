@@ -92,6 +92,13 @@ namespace npva.Chart
             if (!MovingAvg && !Parameter.ExcludeUnique) chart.ArrangeSeries(AxisType.YLeft, sUPv);
             var sPt = new SimpleSeries() { Color = Parameter.PointColor, Name="Points" };
 
+            //累計グラフはゼロ点を設定しておく(初回にPV!=0になるところからしか線が出ないため
+            if (PVSumUp)
+            {
+                sPv.Add(0, 0);
+                sUPv.Add(0, 0);
+            }
+
             double pv = 0;
             double upv = 0;
             int ll = 0;
