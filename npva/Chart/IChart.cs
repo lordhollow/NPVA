@@ -89,6 +89,13 @@ namespace npva.Chart
         void PointerSet(double px, double py);
 
         /// <summary>
+        /// 指した場所の情報
+        /// </summary>
+        /// <param name="logicalX"></param>
+        /// <returns></returns>
+        string GetPointedString(double logicalX);
+
+        /// <summary>
         /// プロットエリア上にカーソルがあるときのイベント
         /// </summary>
         event EventHandler<AxisPointedEventArgs> AxisPointed;

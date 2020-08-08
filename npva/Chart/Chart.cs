@@ -185,6 +185,20 @@ namespace npva.Chart
                 }
             }
         }
+
+        /// <summary>
+        /// 指定論理X軸に対応する系列のデータを取得
+        /// </summary>
+        /// <param name="logicalX">論理</param>
+        public string GetPointedString(double logicalX)
+        {
+            var x = axisX.Translator(logicalX) + Environment.NewLine;
+            foreach(var series in seriesList)
+            {
+                x += series.Item2.GetValueString(logicalX) + Environment.NewLine;
+            }
+            return x;
+        }
     }
 
 }
