@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.tpChart = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // GDIDrawSurface
@@ -45,5 +47,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.ToolTip tpChart;
     }
 }

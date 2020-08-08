@@ -54,6 +54,7 @@ namespace npva.Chart.Drawer
             if (constractor != null)
             {
                 chart = ChartFactory.CreateChart();
+                chart.AxisPointed += Chart_AxisPointed;
                 constractor.ConstractChart(chart, title);
                 chart.Resize(ClientSize.Width, ClientSize.Height);
                 //chart.AxisPointed += (s, a) => Console.WriteLine($"Logical {a.X}, {a.Y1}, {a.Y2}");
@@ -70,6 +71,7 @@ namespace npva.Chart.Drawer
             if ((constractor != null) && (title != null))
             {
                 chart = ChartFactory.CreateChart();
+                chart.AxisPointed += Chart_AxisPointed;
                 constractor.ConstractChart(chart, title);
                 chart.Resize(ClientSize.Width, ClientSize.Height);
                 Invalidate(ClientRectangle);
@@ -157,6 +159,16 @@ namespace npva.Chart.Drawer
         private void GDIDrawSurface_MouseMove(object sender, MouseEventArgs e)
         {
             chart?.PointerSet(e.X, e.Y);
+        }
+
+        /// <summary>
+        /// 軸ポイントイベント処理（ツールチップ表示）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Chart_AxisPointed(object sender, AxisPointedEventArgs e)
+        {
+            tpChart.SetToolTip(this, chart.GetPointedString(Math.Floor(e.X)));
         }
 
     }
