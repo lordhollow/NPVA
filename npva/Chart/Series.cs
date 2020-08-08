@@ -12,8 +12,29 @@ namespace npva.Chart
     /// </summary>
     class Series
     {
+        /// <summary>
+        /// 系列名
+        /// </summary>
+        public string Name { get; set; } = "no name";
+
+        /// <summary>
+        /// 描画処理(サブクラスで実装）
+        /// </summary>
+        /// <param name="context">描画コンテキスト</param>
+        /// <param name="axisX">X軸</param>
+        /// <param name="axisY">Y軸</param>
         public virtual void Draw(IDrawContext context, Axis axisX, Axis axisY)
         {
+        }
+
+        /// <summary>
+        /// 指定論理位置の値を名前と一緒に文字列として得る
+        /// </summary>
+        /// <param name="logicalX"></param>
+        /// <returns></returns>
+        public virtual string GetValueString(double logicalX)
+        {
+            return Name;
         }
 
         /// <summary>
@@ -63,6 +84,11 @@ namespace npva.Chart
         public double Width = 2;
 
         /// <summary>
+        /// GetValueStringで使う値のフォーマット
+        /// </summary>
+        public string ValueStringFormat = "#,0";
+
+        /// <summary>
         /// 描画
         /// </summary>
         /// <param name="context"></param>
@@ -91,6 +117,38 @@ namespace npva.Chart
                     context.DrawLine(startP, endP, Width, Color);
                     startP = endP;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 指定位置文字列化
+        /// </summary>
+        /// <param name="logicalX"></param>
+        /// <returns></returns>
+        public override string GetValueString(double logicalX)
+        {
+            //logicalX以下の最大値を近傍とする。
+            //これは、累計なら過去の最も近い日と同じ値、個別なら一致する日付があるはずで、
+            //もっとも古いデータより以前のscoreはデータなしとすればよいため。
+            KeyValuePair<double, double>? dt = null;
+            foreach (var d in items)
+            {
+                if (d.Key <= logicalX)
+                {
+                    dt = d;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (dt != null)
+            {
+                return $"{Name}: " + dt.Value.Value.ToString(ValueStringFormat);
+            }
+            else
+            {
+                return $"{Name}: no data";
             }
         }
 
