@@ -91,7 +91,6 @@ namespace npva.Chart
             var sUPv = new SimpleSeries() { Color = Parameter.UniquePageViewColor, Name = "Unique" };
             if (!MovingAvg && !Parameter.ExcludeUnique) chart.ArrangeSeries(AxisType.YLeft, sUPv);
             var sPt = new SimpleSeries() { Color = Parameter.PointColor, Name="Points" };
-            if (!Parameter.ExcludeScore) chart.ArrangeSeries(AxisType.YRight, sPt);
 
             double pv = 0;
             double upv = 0;
@@ -148,6 +147,9 @@ namespace npva.Chart
                 if (!Parameter.ExcludeUnique) chart.ArrangeSeries(AxisType.YLeft, avgUPV);
 
             }
+
+            //移動平均より後ろにポイントが来るようにここでチャートに追加
+            if (!Parameter.ExcludeScore) chart.ArrangeSeries(AxisType.YRight, sPt);
 
             var pvMax = sPv.FindMax();  //PV最大値
 
