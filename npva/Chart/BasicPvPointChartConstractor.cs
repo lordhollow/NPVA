@@ -119,8 +119,16 @@ namespace npva.Chart
                     {
                         for (; ll < l; ll++)
                         {   //スコアない期間
-                            sPv.Add(ll, 0);
-                            sUPv.Add(ll, 0);
+                            if (PVSumUp)
+                            {
+                                sPv.Add(ll, pv);
+                                sUPv.Add(ll, upv);
+                            }
+                            else
+                            {
+                                sPv.Add(ll, 0);
+                                sUPv.Add(ll, 0);
+                            }
                         }
                         ll = l + 1;
 
