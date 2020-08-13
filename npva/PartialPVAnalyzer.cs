@@ -173,7 +173,7 @@ namespace npva
                 firstDate = firstDate.AddMonths(1);
             }
             //累積化
-            if (sumup) ResolveSumup(ppvd, keys);
+            if (sumup) ResolveSumup(ppvd, keys, ms);
 
             //行設定(S=0は除外)
             for (var s = 1; s < ms + 1; s++)
@@ -221,14 +221,24 @@ namespace npva
         /// 加算解決
         /// </summary>
         /// <param name="ppvd"></param>
-        void ResolveSumup(Dictionary<string, int[]> ppvd, List<string> keys)
+        void ResolveSumup(Dictionary<string, int[]> ppvd, List<string> keys, int ms)
         {
             //2キー目以降から、直前のキーの値を加算していく。
             for (int i = 1; i < keys.Count; i++)
             {
-                var pd = ppvd[keys[i - 1]];
-                var cd = ppvd[keys[i]];
-
+                int[] pd;
+                int[] cd;
+                if (!ppvd.TryGetValue(keys[i - 1], out pd))
+                {
+                    pd = new int[ms + 1];
+                    ppvd[keys[i - 1]] = pd;
+                }
+                if (!ppvd.TryGetValue(keys[i], out cd))
+                {
+                    cd = new int[ms + 1];
+                    ppvd[keys[i]] = cd;
+                }
+                
                 //※pdとcdのindexの数は同じであるという前提があります
 
                 for (var y = 0; y < pd.Length; y++)
