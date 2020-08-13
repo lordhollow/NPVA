@@ -480,9 +480,9 @@ namespace npva
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cmdPVReparse_Click(object sender, EventArgs e)
+        private async void cmdPVReparse_Click(object sender, EventArgs e)
         {
-            analyzer.GetPVData(true);
+            await analyzer.GetPVDataAsync(true);
             analyzer.Save();
             updateList();
         }
@@ -492,13 +492,13 @@ namespace npva
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cmdUpdatePPV_Click(object sender, EventArgs e)
+        private async void cmdUpdatePPV_Click(object sender, EventArgs e)
         {
             var t = dlvTitleInfo.ArrangedTitle;
             if (t != null)
             {
                 t = analyzer.getOriginalTitle(t);
-                analyzer.AnalyzePartPv(t);
+                await analyzer.AnalyzePartPvAsync(t);
                 analyzer.Save();
                 updateList();
             }

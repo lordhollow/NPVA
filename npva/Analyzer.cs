@@ -248,6 +248,27 @@ namespace npva
             await task;
         }
 
+        /// <summary>
+        /// PVデータ取り込み(全作品全期間)(非同期)
+        /// </summary>
+        /// <param name="useCache"></param>
+        /// <returns></returns>
+        public async Task GetPVDataAsync(bool useCache)
+        {
+            var task = Task.Run(() => GetPVData(useCache));
+            await task;
+        }
+
+        /// <summary>
+        /// 日別PV取得(非同期）
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public async Task AnalyzePartPvAsync(DB.Title t)
+        {
+            var task = Task.Run(() => AnalyzePartPv(t));
+            await task;
+        }
 
         /// <summary>
         /// PVデータ取り込み（全作品の初投稿月～今月）
