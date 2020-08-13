@@ -190,7 +190,7 @@
             this.cmdUpdatePPV.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cmdUpdatePPV.Name = "cmdUpdatePPV";
             this.cmdUpdatePPV.Size = new System.Drawing.Size(23, 22);
-            this.cmdUpdatePPV.Text = "日別PV取得";
+            this.cmdUpdatePPV.Text = "選択中のタイトルの部位別Pv取得";
             this.cmdUpdatePPV.Click += new System.EventHandler(this.cmdUpdatePPV_Click);
             // 
             // cmdPref

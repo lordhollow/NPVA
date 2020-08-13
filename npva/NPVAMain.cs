@@ -135,6 +135,9 @@ namespace npva
                 lblStatus.Text = enable ? "待機中" : "更新中";
                 btnUpdate.Enabled = enable;
                 cmbUserId.Enabled = enable;
+                cmdPVReparse.Enabled = enable;
+                cmdUpdateAllStoredUser.Enabled = enable;
+                cmdUpdatePPV.Enabled = enable;
             }
         }
 
