@@ -64,6 +64,10 @@ namespace npva
             if (cmbChartType.Items.Count > 0) cmbChartType.SelectedIndex = 0;
             cmbChartType.SelectedIndexChanged += (s, a) => redrawChart();
 
+            //部位別PVアナライザの準備
+            cmbPPVAnalyzer.Items.AddRange(PartialPVAnalyzer.CreatePartialPVAnalyzers().ToArray());
+            if (cmbPPVAnalyzer.Items.Count > 0) cmbPPVAnalyzer.SelectedIndex = 0;
+
             //IDリスト
             foreach (var aid in analyzer.StoredAuthorInfo)
             {
@@ -195,6 +199,11 @@ namespace npva
             if(title.Score.Find(x=>x.PartPvChecked)!=null)
             {
                 RestorePartTab();
+                var a = cmbPPVAnalyzer.SelectedItem as PartialPVAnalyzer;
+                if (a != null)
+                {
+                    a.Analyze(title, lvPartPv);
+                }
                 showPartPv(title);
             }
             else
@@ -262,30 +271,6 @@ namespace npva
         /// <param name="title"></param>
         private void showPartPv(DB.Title title)
         {
-            var pv = new Dictionary<int, int>();
-            foreach (var score in title.Score.Where(x => x.PartPvChecked))
-            {
-                foreach(var p in score.PartPv)
-                {
-                    if (pv.ContainsKey(p.Part))
-                    {
-                        pv[p.Part] += p.PageView;
-                    }
-                    else
-                    {
-                        pv[p.Part] = p.PageView;
-                    }
-                }
-            }
-            lvPartPv.Items.Clear();
-            lvPartPv.Columns.Clear();
-            lvPartPv.Columns.Add("部分");
-            lvPartPv.Columns.Add("合計PV");
-            foreach (var p in pv.OrderBy(x=>x.Key))
-            {
-                var lst = lvPartPv.Items.Add($"第{p.Key}部分");
-                lst.SubItems.Add($"{p.Value:#,0}人");
-            }
         }
 
         /// <summary>
@@ -423,6 +408,24 @@ namespace npva
                     {
                         MessageBox.Show("グラフが選択されていません");
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 部位別PV分析変更
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbPPVAnalyzer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var t = dlvTitleInfo.ArrangedTitle;
+            if (t != null)
+            {
+                var a = cmbPPVAnalyzer.SelectedItem as PartialPVAnalyzer;
+                if (a!= null)
+                {
+                    a.Analyze(t, lvPartPv);
                 }
             }
         }

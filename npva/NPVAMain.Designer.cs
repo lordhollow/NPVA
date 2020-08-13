@@ -64,12 +64,13 @@
             this.cmbChartType = new System.Windows.Forms.ComboBox();
             this.tpPart = new System.Windows.Forms.TabPage();
             this.lvPartPv = new System.Windows.Forms.ListView();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pPPVControl = new System.Windows.Forms.Panel();
             this.lblSizeInfo = new System.Windows.Forms.Label();
             this.lblUpdateInfo = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.dlvTitleInfo = new npva.DetailListView();
             this.chartDrawer = new npva.Chart.Drawer.GDIDrawSurface();
+            this.cmbPPVAnalyzer = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.spLR)).BeginInit();
             this.spLR.Panel1.SuspendLayout();
             this.spLR.Panel2.SuspendLayout();
@@ -87,6 +88,7 @@
             this.spChartLR.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tpPart.SuspendLayout();
+            this.pPPVControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // spLR
@@ -439,7 +441,7 @@
             // tpPart
             // 
             this.tpPart.Controls.Add(this.lvPartPv);
-            this.tpPart.Controls.Add(this.panel2);
+            this.tpPart.Controls.Add(this.pPPVControl);
             this.tpPart.Location = new System.Drawing.Point(4, 22);
             this.tpPart.Name = "tpPart";
             this.tpPart.Padding = new System.Windows.Forms.Padding(3);
@@ -459,13 +461,14 @@
             this.lvPartPv.UseCompatibleStateImageBehavior = false;
             this.lvPartPv.View = System.Windows.Forms.View.Details;
             // 
-            // panel2
+            // pPPVControl
             // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(845, 37);
-            this.panel2.TabIndex = 1;
+            this.pPPVControl.Controls.Add(this.cmbPPVAnalyzer);
+            this.pPPVControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pPPVControl.Location = new System.Drawing.Point(3, 3);
+            this.pPPVControl.Name = "pPPVControl";
+            this.pPPVControl.Size = new System.Drawing.Size(845, 37);
+            this.pPPVControl.TabIndex = 1;
             // 
             // lblSizeInfo
             // 
@@ -512,6 +515,16 @@
             this.chartDrawer.Size = new System.Drawing.Size(639, 321);
             this.chartDrawer.TabIndex = 0;
             // 
+            // cmbPPVAnalyzer
+            // 
+            this.cmbPPVAnalyzer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPPVAnalyzer.FormattingEnabled = true;
+            this.cmbPPVAnalyzer.Location = new System.Drawing.Point(3, 3);
+            this.cmbPPVAnalyzer.Name = "cmbPPVAnalyzer";
+            this.cmbPPVAnalyzer.Size = new System.Drawing.Size(180, 20);
+            this.cmbPPVAnalyzer.TabIndex = 0;
+            this.cmbPPVAnalyzer.SelectedIndexChanged += new System.EventHandler(this.cmbPPVAnalyzer_SelectedIndexChanged);
+            // 
             // NPVAMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -543,6 +556,7 @@
             this.spChartLR.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tpPart.ResumeLayout(false);
+            this.pPPVControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -586,9 +600,10 @@
         private System.Windows.Forms.ToolStripButton cmdUpdatePPV;
         private System.Windows.Forms.TabPage tpPart;
         private System.Windows.Forms.ListView lvPartPv;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pPPVControl;
         private System.Windows.Forms.ToolStripButton cmdPref;
         private System.Windows.Forms.Button btnChartSaveAs;
+        private System.Windows.Forms.ComboBox cmbPPVAnalyzer;
     }
 }
 

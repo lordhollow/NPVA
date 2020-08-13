@@ -112,6 +112,7 @@
     <Compile Include="NPVAMain.Designer.cs">
       <DependentUpon>NPVAMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="PartialPVAnalyzer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DebugReport.cs" />
