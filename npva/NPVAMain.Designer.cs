@@ -50,12 +50,10 @@
             this.pR = new System.Windows.Forms.Panel();
             this.tabInfo = new System.Windows.Forms.TabControl();
             this.tpList = new System.Windows.Forms.TabPage();
-            this.dlvTitleInfo = new npva.DetailListView();
             this.cmenuDetailList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmenuBrowsePartPv = new System.Windows.Forms.ToolStripMenuItem();
             this.tpChart = new System.Windows.Forms.TabPage();
             this.spChartLR = new System.Windows.Forms.SplitContainer();
-            this.chartDrawer = new npva.Chart.Drawer.GDIDrawSurface();
             this.lvAnalyzed = new System.Windows.Forms.ListView();
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,6 +68,8 @@
             this.lblSizeInfo = new System.Windows.Forms.Label();
             this.lblUpdateInfo = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.dlvTitleInfo = new npva.DetailListView();
+            this.chartDrawer = new npva.Chart.Drawer.GDIDrawSurface();
             ((System.ComponentModel.ISupportInitialize)(this.spLR)).BeginInit();
             this.spLR.Panel1.SuspendLayout();
             this.spLR.Panel2.SuspendLayout();
@@ -191,7 +191,6 @@
             this.cmdUpdatePPV.Name = "cmdUpdatePPV";
             this.cmdUpdatePPV.Size = new System.Drawing.Size(23, 22);
             this.cmdUpdatePPV.Text = "日別PV取得";
-            this.cmdUpdatePPV.Visible = false;
             this.cmdUpdatePPV.Click += new System.EventHandler(this.cmdUpdatePPV_Click);
             // 
             // cmdPref
@@ -321,15 +320,6 @@
             this.tpList.Text = "List";
             this.tpList.UseVisualStyleBackColor = true;
             // 
-            // dlvTitleInfo
-            // 
-            this.dlvTitleInfo.ContextMenuStrip = this.cmenuDetailList;
-            this.dlvTitleInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dlvTitleInfo.Location = new System.Drawing.Point(3, 3);
-            this.dlvTitleInfo.Name = "dlvTitleInfo";
-            this.dlvTitleInfo.Size = new System.Drawing.Size(845, 345);
-            this.dlvTitleInfo.TabIndex = 0;
-            // 
             // cmenuDetailList
             // 
             this.cmenuDetailList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -376,14 +366,6 @@
             this.spChartLR.Size = new System.Drawing.Size(845, 321);
             this.spChartLR.SplitterDistance = 639;
             this.spChartLR.TabIndex = 0;
-            // 
-            // chartDrawer
-            // 
-            this.chartDrawer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartDrawer.Location = new System.Drawing.Point(0, 0);
-            this.chartDrawer.Name = "chartDrawer";
-            this.chartDrawer.Size = new System.Drawing.Size(639, 321);
-            this.chartDrawer.TabIndex = 0;
             // 
             // lvAnalyzed
             // 
@@ -512,6 +494,23 @@
             this.lblTitle.Size = new System.Drawing.Size(55, 24);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "TITLE";
+            // 
+            // dlvTitleInfo
+            // 
+            this.dlvTitleInfo.ContextMenuStrip = this.cmenuDetailList;
+            this.dlvTitleInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dlvTitleInfo.Location = new System.Drawing.Point(3, 3);
+            this.dlvTitleInfo.Name = "dlvTitleInfo";
+            this.dlvTitleInfo.Size = new System.Drawing.Size(845, 345);
+            this.dlvTitleInfo.TabIndex = 0;
+            // 
+            // chartDrawer
+            // 
+            this.chartDrawer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartDrawer.Location = new System.Drawing.Point(0, 0);
+            this.chartDrawer.Name = "chartDrawer";
+            this.chartDrawer.Size = new System.Drawing.Size(639, 321);
+            this.chartDrawer.TabIndex = 0;
             // 
             // NPVAMain
             // 
