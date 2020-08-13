@@ -382,6 +382,16 @@ namespace npva
         }
 
         /// <summary>
+        /// 著者名ダブルクリック→著者名表示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblAuthor_DoubleClick(object sender, EventArgs e)
+        {
+            ShowUser();
+        }
+
+        /// <summary>
         /// チャートの保存
         /// </summary>
         /// <param name="sender"></param>

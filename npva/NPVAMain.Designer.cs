@@ -62,6 +62,7 @@
             this.chMarkreDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnChartSaveAs = new System.Windows.Forms.Button();
             this.cmbChartType = new System.Windows.Forms.ComboBox();
             this.tpPart = new System.Windows.Forms.TabPage();
             this.lvPartPv = new System.Windows.Forms.ListView();
@@ -69,7 +70,6 @@
             this.lblSizeInfo = new System.Windows.Forms.Label();
             this.lblUpdateInfo = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnChartSaveAs = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.spLR)).BeginInit();
             this.spLR.Panel1.SuspendLayout();
             this.spLR.Panel2.SuspendLayout();
@@ -212,6 +212,7 @@
             this.lblAuthor.Size = new System.Drawing.Size(53, 12);
             this.lblAuthor.TabIndex = 9;
             this.lblAuthor.Text = "<著者名>";
+            this.lblAuthor.DoubleClick += new System.EventHandler(this.lblAuthor_DoubleClick);
             // 
             // cmbSortType
             // 
@@ -434,6 +435,16 @@
             this.panel1.Size = new System.Drawing.Size(845, 24);
             this.panel1.TabIndex = 1;
             // 
+            // btnChartSaveAs
+            // 
+            this.btnChartSaveAs.Location = new System.Drawing.Point(249, 3);
+            this.btnChartSaveAs.Name = "btnChartSaveAs";
+            this.btnChartSaveAs.Size = new System.Drawing.Size(75, 18);
+            this.btnChartSaveAs.TabIndex = 1;
+            this.btnChartSaveAs.Text = "SaveAs";
+            this.btnChartSaveAs.UseVisualStyleBackColor = true;
+            this.btnChartSaveAs.Click += new System.EventHandler(this.btnChartSaveAs_Click);
+            // 
             // cmbChartType
             // 
             this.cmbChartType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -501,16 +512,6 @@
             this.lblTitle.Size = new System.Drawing.Size(55, 24);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "TITLE";
-            // 
-            // btnChartSaveAs
-            // 
-            this.btnChartSaveAs.Location = new System.Drawing.Point(249, 3);
-            this.btnChartSaveAs.Name = "btnChartSaveAs";
-            this.btnChartSaveAs.Size = new System.Drawing.Size(75, 18);
-            this.btnChartSaveAs.TabIndex = 1;
-            this.btnChartSaveAs.Text = "SaveAs";
-            this.btnChartSaveAs.UseVisualStyleBackColor = true;
-            this.btnChartSaveAs.Click += new System.EventHandler(this.btnChartSaveAs_Click);
             // 
             // NPVAMain
             // 
