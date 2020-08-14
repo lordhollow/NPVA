@@ -24,6 +24,17 @@ namespace npva
             yield return new PPVA_PartialByMonth(6);
             yield return new PPVA_PartialByMonth(true);
             yield return new PPVA_PartialByMonth(true, 6);
+
+            var conf = Properties.Settings.Default;
+            if (!conf.PPVWeekFromMonday)
+            {
+                yield return new PPVA_PartialByMonth(PPVA_PartialByMonth.RangeType.WeekFromSunday, false, 6);
+            }
+            else
+            {
+                yield return new PPVA_PartialByMonth(PPVA_PartialByMonth.RangeType.WeekFromMonday, false, 6);
+            }
+            yield return new PPVA_PartialByMonth(PPVA_PartialByMonth.RangeType.Day, false, conf.PPVDays);
         }
 
         /// <summary>
@@ -102,6 +113,33 @@ namespace npva
     {
         int range = 0;
         bool sumup = false;
+        RangeType rangeType = RangeType.Month;
+        Func<DateTime, string> DateToKey;
+        Func<Title, DateTime> getFirstKeyDate;
+        Func<DateTime, DateTime> getNextKeyDate;
+
+        /// <summary>
+        /// rangeが表す区間
+        /// </summary>
+        public enum RangeType
+        {
+            /// <summary>
+            /// 過去n月
+            /// </summary>
+            Month,
+            /// <summary>
+            /// 過去n週(週は日曜日はじまり)
+            /// </summary>
+            WeekFromSunday,
+            /// <summary>
+            /// 過去n週(週は月曜日はじまり)
+            /// </summary>
+            WeekFromMonday,
+            /// <summary>
+            /// 過去n日
+            /// </summary>
+            Day,
+        }
 
         /// <summary>
         /// 全期間
@@ -109,6 +147,7 @@ namespace npva
         public PPVA_PartialByMonth()
         {
             range = 0;
+            construct();
         }
 
         /// <summary>
@@ -118,6 +157,7 @@ namespace npva
         public PPVA_PartialByMonth(int n)
         {
             range = n;
+            construct();
         }
 
         /// <summary>
@@ -128,34 +168,83 @@ namespace npva
         {
             sumup = sum;
             range = 0;
+            construct();
         }
 
-        //過去Nか月累積
+        /// <summary>
+        /// 過去Nか月累積
+        /// </summary>
+        /// <param name="sum"></param>
+        /// <param name="n"></param>
         public PPVA_PartialByMonth(bool sum, int n)
         {
             sumup = sum;
             range = n;
+            construct();
+        }
+
+        /// <summary>
+        /// フルオプション
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="sum"></param>
+        /// <param name="n"></param>
+        public PPVA_PartialByMonth(RangeType type, bool sum, int n)
+        {
+            rangeType = type;
+            sumup = sum;
+            range = n;
+            construct();
+        }
+
+        /// <summary>
+        /// 初期化(キー関連のデリゲート設定)
+        /// </summary>
+        private void construct()
+        {
+            switch (rangeType)
+            {
+                case RangeType.WeekFromSunday:
+                    DateToKey = DateToKey_WeekFromSunday;
+                    getFirstKeyDate = getFirstKeyDate_WeekFromSunday;
+                    getNextKeyDate = getNextKeyDate_Week;
+                    break;
+                case RangeType.WeekFromMonday:
+                    DateToKey = DateToKey_WeekFromMonday;
+                    getFirstKeyDate = getFirstKeyDate_WeekFromMonday;
+                    getNextKeyDate = getNextKeyDate_Week;
+                    break;
+                case RangeType.Day:
+                    DateToKey = DateToKey_Day;
+                    getFirstKeyDate = getFirstKeyDate_Day;
+                    getNextKeyDate = getNextKeyDate_Day;
+                    break;
+                default:
+                    DateToKey = DateToKey_Month;
+                    getFirstKeyDate = getFirstKeyDate_Month;
+                    getNextKeyDate = getNextKeyDate_Month;
+                    break;
+            }
         }
 
         protected override void analyze_execute(Title t, ListView listView)
         {
             //総和数（TODO：：途中で挿話したり削除したらどうなるかはわからんです）
             var ms = t.LatestScore.Series;
-            
+
             //全キーおよびカウンタ辞書
             var keys = getKeys(t);
             var ppvd = new Dictionary<string, int[]>();
             keys.ForEach(key => ppvd[key] = new int[ms + 1]);
- 
+
             //解析
             countupPPV(t, ppvd);
-            
+
             //累積化
             if (sumup) ResolveSumup(ppvd, keys, ms);
 
             //桁設定
             listView.Columns.Add("部分");
-
             keys.ForEach(x => listView.Columns.Add(x));
 
             //行設定(S=0は除外)
@@ -205,21 +294,54 @@ namespace npva
         }
 
         /// <summary>
-        /// 日付を月表記にする
+        /// 日付を月表記にする(Month)
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-        private string DateToKey(DateTime d)
+        private string DateToKey_Month(DateTime d)
         {
             return d.ToString("yyyy/MM");
         }
 
         /// <summary>
-        /// 最初のキーになる日付を取得
+        /// 日付を月表記にする(Week(Sun))
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        private string DateToKey_WeekFromSunday(DateTime d)
+        {
+            d = d.AddDays(-(int)d.DayOfWeek);
+            return d.ToString("yyyy/MM/dd");
+        }
+
+        /// <summary>
+        /// 
+        /// 日付を月表記にする(Week(Mun))
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        private string DateToKey_WeekFromMonday(DateTime d)
+        {
+            d = d.AddDays(-(int)d.DayOfWeek + 1);
+            return d.ToString("yyyy/MM/dd");
+        }
+
+        /// <summary>
+        /// 日付を月表記にする(Week,Day)
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        private string DateToKey_Day(DateTime d)
+        {
+            return d.ToString("yyyy/MM/dd");
+        }
+        
+        /// <summary>
+        /// 最初のキーになる日付を取得(Month)
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        private DateTime getFirstKeyDate(Title t)
+        private DateTime getFirstKeyDate_Month(Title t)
         {
             var firstDate = t.FirstUp.Date;
             if (range > 0)
@@ -231,13 +353,86 @@ namespace npva
         }
 
         /// <summary>
-        /// 次のキーになる日付を取得
+        /// 最初のキーになる日付を取得(Week(Sun))
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        private DateTime getFirstKeyDate_WeekFromSunday(Title t)
+        {
+            var firstDate = t.FirstUp.Date;
+            if (range > 0)
+            {
+                firstDate = DateTime.Now.Date.AddDays(((range - 1) * -7) + 1);
+            }
+            //DayOfWeekはSundayが0。日曜日始まりはそのまま引けばよい。
+            var w = firstDate.DayOfWeek;
+            firstDate = firstDate.AddDays(-(int)w);
+            return firstDate;
+        }
+
+        /// <summary>
+        /// 最初のキーになる日付を取得(Week(Sun))
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        private DateTime getFirstKeyDate_WeekFromMonday(Title t)
+        {
+            var firstDate = t.FirstUp.Date;
+            if (range > 0)
+            {
+                firstDate = DateTime.Now.Date.AddDays(((range - 1) * -7) + 1);
+            }
+            //DayOfWeekはSundayが0。月曜始まりは1加算
+            var w = firstDate.DayOfWeek;
+            firstDate = firstDate.AddDays(-(int)w + 1);
+            return firstDate;
+        }
+
+        /// <summary>
+        /// 最初のキーになる日付を取得(Day)
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        private DateTime getFirstKeyDate_Day(Title t)
+        {
+            var firstDate = t.FirstUp.Date;
+            if (range > 0)
+            {
+                firstDate = DateTime.Now.Date.AddDays(-range+1);
+            }
+            return firstDate;
+        }
+
+        /// <summary>
+        /// 次のキーになる日付を取得(Month)
         /// </summary>
         /// <param name="firstDate"></param>
         /// <returns></returns>
-        private DateTime getNextKeyDate(DateTime firstDate)
+        private DateTime getNextKeyDate_Month(DateTime firstDate)
         {
             firstDate = firstDate.AddMonths(1);
+            return firstDate;
+        }
+
+        /// <summary>
+        /// 次のキーになる日付を取得(Week)
+        /// </summary>
+        /// <param name="firstDate"></param>
+        /// <returns></returns>
+        private DateTime getNextKeyDate_Week(DateTime firstDate)
+        {
+            firstDate = firstDate.AddDays(7);
+            return firstDate;
+        }
+        
+        /// <summary>
+        /// 次のキーになる日付を取得(Day)
+        /// </summary>
+        /// <param name="firstDate"></param>
+        /// <returns></returns>
+        private DateTime getNextKeyDate_Day(DateTime firstDate)
+        {
+            firstDate = firstDate.AddDays(1);
             return firstDate;
         }
 
@@ -286,8 +481,25 @@ namespace npva
         /// <returns></returns>
         public override string ToString()
         {
-            var r = range <= 0 ? "" : $"(過去{range}か月分)";
-            var s = sumup ? "累積" : "月間";
+            var rangeScript = "月間";
+            var rangeUnit = "か月分";
+
+            switch (rangeType)
+            {
+                case RangeType.WeekFromSunday:
+                case RangeType.WeekFromMonday:
+                    rangeScript = "週間";
+                    rangeUnit = "週間";
+                    break;
+                case RangeType.Day:
+                    rangeScript = "日間";
+                    rangeUnit = "日分";
+                    break;
+            }
+
+
+            var r = range <= 0 ? "" : $"(過去{range}{rangeUnit})";
+            var s = sumup ? "累積" : rangeScript;
 
             return $"{s}部位別PV{r}";
         }
