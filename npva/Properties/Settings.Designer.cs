@@ -250,5 +250,29 @@ namespace npva.Properties {
                 this["ChartSaveHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PPVWeekFromMonday {
+            get {
+                return ((bool)(this["PPVWeekFromMonday"]));
+            }
+            set {
+                this["PPVWeekFromMonday"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int PPVDays {
+            get {
+                return ((int)(this["PPVDays"]));
+            }
+            set {
+                this["PPVDays"] = value;
+            }
+        }
     }
 }
