@@ -51,18 +51,24 @@
             this.chkChartIgnorePV = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.gbChartSave = new System.Windows.Forms.GroupBox();
-            this.rbChartSaveAsIs = new System.Windows.Forms.RadioButton();
-            this.rbChartSaveSized = new System.Windows.Forms.RadioButton();
-            this.numChartSaveW = new System.Windows.Forms.NumericUpDown();
-            this.numChartSaveH = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numChartSaveH = new System.Windows.Forms.NumericUpDown();
+            this.numChartSaveW = new System.Windows.Forms.NumericUpDown();
+            this.rbChartSaveSized = new System.Windows.Forms.RadioButton();
+            this.rbChartSaveAsIs = new System.Windows.Forms.RadioButton();
+            this.gbPPV = new System.Windows.Forms.GroupBox();
+            this.chkPPVWeekFromMonday = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numPPVDays = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numSummalyLen)).BeginInit();
             this.gbChartConstractor.SuspendLayout();
             this.gbChart.SuspendLayout();
             this.gbChartSave.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numChartSaveW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numChartSaveH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numChartSaveW)).BeginInit();
+            this.gbPPV.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPPVDays)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -286,7 +292,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(541, 312);
+            this.btnOK.Location = new System.Drawing.Point(551, 362);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 8;
@@ -309,39 +315,23 @@
             this.gbChartSave.TabStop = false;
             this.gbChartSave.Text = "チャートの画像保存";
             // 
-            // rbChartSaveAsIs
+            // label5
             // 
-            this.rbChartSaveAsIs.AutoSize = true;
-            this.rbChartSaveAsIs.Location = new System.Drawing.Point(6, 17);
-            this.rbChartSaveAsIs.Name = "rbChartSaveAsIs";
-            this.rbChartSaveAsIs.Size = new System.Drawing.Size(86, 16);
-            this.rbChartSaveAsIs.TabIndex = 0;
-            this.rbChartSaveAsIs.TabStop = true;
-            this.rbChartSaveAsIs.Text = "見たまま保存";
-            this.rbChartSaveAsIs.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(472, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(25, 12);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "高さ";
             // 
-            // rbChartSaveSized
+            // label4
             // 
-            this.rbChartSaveSized.AutoSize = true;
-            this.rbChartSaveSized.Location = new System.Drawing.Point(208, 17);
-            this.rbChartSaveSized.Name = "rbChartSaveSized";
-            this.rbChartSaveSized.Size = new System.Drawing.Size(76, 16);
-            this.rbChartSaveSized.TabIndex = 1;
-            this.rbChartSaveSized.TabStop = true;
-            this.rbChartSaveSized.Text = "サイズ指定";
-            this.rbChartSaveSized.UseVisualStyleBackColor = true;
-            // 
-            // numChartSaveW
-            // 
-            this.numChartSaveW.Location = new System.Drawing.Point(367, 14);
-            this.numChartSaveW.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
-            this.numChartSaveW.Name = "numChartSaveW";
-            this.numChartSaveW.Size = new System.Drawing.Size(93, 19);
-            this.numChartSaveW.TabIndex = 2;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(344, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "幅";
             // 
             // numChartSaveH
             // 
@@ -355,29 +345,99 @@
             this.numChartSaveH.Size = new System.Drawing.Size(93, 19);
             this.numChartSaveH.TabIndex = 3;
             // 
-            // label4
+            // numChartSaveW
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(344, 19);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 12);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "幅";
+            this.numChartSaveW.Location = new System.Drawing.Point(367, 14);
+            this.numChartSaveW.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.numChartSaveW.Name = "numChartSaveW";
+            this.numChartSaveW.Size = new System.Drawing.Size(93, 19);
+            this.numChartSaveW.TabIndex = 2;
             // 
-            // label5
+            // rbChartSaveSized
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(472, 19);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(25, 12);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "高さ";
+            this.rbChartSaveSized.AutoSize = true;
+            this.rbChartSaveSized.Location = new System.Drawing.Point(208, 17);
+            this.rbChartSaveSized.Name = "rbChartSaveSized";
+            this.rbChartSaveSized.Size = new System.Drawing.Size(76, 16);
+            this.rbChartSaveSized.TabIndex = 1;
+            this.rbChartSaveSized.TabStop = true;
+            this.rbChartSaveSized.Text = "サイズ指定";
+            this.rbChartSaveSized.UseVisualStyleBackColor = true;
+            // 
+            // rbChartSaveAsIs
+            // 
+            this.rbChartSaveAsIs.AutoSize = true;
+            this.rbChartSaveAsIs.Location = new System.Drawing.Point(6, 17);
+            this.rbChartSaveAsIs.Name = "rbChartSaveAsIs";
+            this.rbChartSaveAsIs.Size = new System.Drawing.Size(86, 16);
+            this.rbChartSaveAsIs.TabIndex = 0;
+            this.rbChartSaveAsIs.TabStop = true;
+            this.rbChartSaveAsIs.Text = "見たまま保存";
+            this.rbChartSaveAsIs.UseVisualStyleBackColor = true;
+            // 
+            // gbPPV
+            // 
+            this.gbPPV.Controls.Add(this.numPPVDays);
+            this.gbPPV.Controls.Add(this.label6);
+            this.gbPPV.Controls.Add(this.chkPPVWeekFromMonday);
+            this.gbPPV.Location = new System.Drawing.Point(20, 304);
+            this.gbPPV.Name = "gbPPV";
+            this.gbPPV.Size = new System.Drawing.Size(606, 52);
+            this.gbPPV.TabIndex = 10;
+            this.gbPPV.TabStop = false;
+            this.gbPPV.Text = "部位別PV表示";
+            // 
+            // chkPPVWeekFromMonday
+            // 
+            this.chkPPVWeekFromMonday.AutoSize = true;
+            this.chkPPVWeekFromMonday.Location = new System.Drawing.Point(6, 18);
+            this.chkPPVWeekFromMonday.Name = "chkPPVWeekFromMonday";
+            this.chkPPVWeekFromMonday.Size = new System.Drawing.Size(117, 16);
+            this.chkPPVWeekFromMonday.TabIndex = 2;
+            this.chkPPVWeekFromMonday.Text = "月曜日始まりにする";
+            this.chkPPVWeekFromMonday.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(206, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "日間表示数";
+            // 
+            // numPPVDays
+            // 
+            this.numPPVDays.Location = new System.Drawing.Point(346, 17);
+            this.numPPVDays.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numPPVDays.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numPPVDays.Name = "numPPVDays";
+            this.numPPVDays.Size = new System.Drawing.Size(120, 19);
+            this.numPPVDays.TabIndex = 11;
+            this.numPPVDays.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // ConfigulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 345);
+            this.ClientSize = new System.Drawing.Size(646, 402);
+            this.Controls.Add(this.gbPPV);
             this.Controls.Add(this.gbChartSave);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.gbChart);
@@ -399,8 +459,11 @@
             this.gbChart.PerformLayout();
             this.gbChartSave.ResumeLayout(false);
             this.gbChartSave.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numChartSaveW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numChartSaveH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numChartSaveW)).EndInit();
+            this.gbPPV.ResumeLayout(false);
+            this.gbPPV.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPPVDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,5 +500,9 @@
         private System.Windows.Forms.NumericUpDown numChartSaveW;
         private System.Windows.Forms.RadioButton rbChartSaveSized;
         private System.Windows.Forms.RadioButton rbChartSaveAsIs;
+        private System.Windows.Forms.GroupBox gbPPV;
+        private System.Windows.Forms.NumericUpDown numPPVDays;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox chkPPVWeekFromMonday;
     }
 }

@@ -61,6 +61,9 @@ namespace npva
             if (conf.ChartSaveAsIs) rbChartSaveAsIs.Checked = true; else rbChartSaveSized.Checked = true;
             numChartSaveW.Value = conf.ChartSaveWidth;
             numChartSaveH.Value = conf.ChartSaveHeight;
+            //PPV
+            chkPPVWeekFromMonday.Checked = conf.PPVWeekFromMonday;
+            numPPVDays.Value = conf.PPVDays;
         }
 
         private void Commit()
@@ -87,6 +90,9 @@ namespace npva
             conf.ChartSaveAsIs = rbChartSaveAsIs.Checked;
             conf.ChartSaveWidth = (int)numChartSaveW.Value;
             conf.ChartSaveHeight = (int)numChartSaveH.Value;
+            //PPV
+            conf.PPVWeekFromMonday = chkPPVWeekFromMonday.Checked;
+            conf.PPVDays = (int)numPPVDays.Value;
 
             conf.Save();
         }

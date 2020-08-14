@@ -102,6 +102,10 @@ namespace npva
             cmbChartType.Items.Clear();
             cmbChartType.Items.AddRange(Chart.ChartConstructor.CreateConstactors().ToArray());
             if (cmbChartType.Items.Count > 0) cmbChartType.SelectedIndex = 0;
+            //部位別PVアナライザの再生成
+            cmbPPVAnalyzer.Items.Clear();
+            cmbPPVAnalyzer.Items.AddRange(PartialPVAnalyzer.CreatePartialPVAnalyzers().ToArray());
+            if (cmbPPVAnalyzer.Items.Count > 0) cmbPPVAnalyzer.SelectedIndex = 0;
         }
 
         /// <summary>
