@@ -165,7 +165,8 @@ namespace npva
             {
                 firstDate = DateTime.Now.AddMonths(-range + 1);
             }
-            while (firstDate <= DateTime.Now)
+            firstDate = firstDate.AddDays(-firstDate.Day + 1);
+            while (firstDate <= DateTime.Now.Date)
             {
                 var k = DateToKey(firstDate);
                 keys.Add(k);
