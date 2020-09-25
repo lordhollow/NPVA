@@ -32,11 +32,22 @@ namespace npva
         public int AuthorSummaryPvSums = 0;
 
         /// <summary>
+        /// 携帯電話からのアクセスを示すカラムの番号
+        /// </summary>
+        const int indexOfMobileColumn = 2;
+
+        /// <summary>
+        /// 携帯電話からのアクセスを示すカラムの幅
+        /// </summary>
+        int DefaultMobileColumnWidth = 0;
+
+        /// <summary>
         /// 初期化
         /// </summary>
         public DetailListView()
         {
             InitializeComponent();
+            DefaultMobileColumnWidth = lvDisplay.Columns[indexOfMobileColumn].Width;
         }
 
         /// <summary>
@@ -51,15 +62,18 @@ namespace npva
             chDate.Text = "Title";
             lvDisplay.BeginUpdate();
             lvDisplay.Items.Clear();
+            var mobileColumnWidth = 0;
             foreach (var title in author.Titles)
             {
                 var item = new ListViewItem($"{title.ID} {title.Name}");
                 var score = title.LatestScore;
                 var scoreD = AuthorSummaryDiffDays <= 0 ? null : title.GetScore(score.Date.AddDays(-1 * AuthorSummaryDiffDays));
                 var pvScore = title.SumUpPv(AuthorSummaryPvSums);
+                if (pvScore.Mobile != 0) mobileColumnWidth = DefaultMobileColumnWidth;
                 if (score != null) registorScoreInfo(pvScore, score, scoreD, item);
                 lvDisplay.Items.Add(item);
             }
+            lvDisplay.Columns[indexOfMobileColumn].Width = mobileColumnWidth;
             lvDisplay.EndUpdate();
         }
 
@@ -75,6 +89,7 @@ namespace npva
             chDate.Text = "Date";
             lvDisplay.BeginUpdate();
             lvDisplay.Items.Clear();
+            var mobileColumnWidth = 0;
             //総計
             {
                 var item = new ListViewItem("total");
@@ -87,6 +102,7 @@ namespace npva
                     SmartPhone = title.Score.Sum(x => x.SmartPhone),
                     SmartPhoneUnique = title.Score.Sum(x => x.SmartPhoneUnique)
                 };
+                if (pv.Mobile != 0) mobileColumnWidth = DefaultMobileColumnWidth;
                 var score = title.LatestScore;
                 registorScoreInfo(pv, score, null, item);
 
@@ -100,6 +116,7 @@ namespace npva
                 lvDisplay.Items.Add(item);
             }
 
+            lvDisplay.Columns[indexOfMobileColumn].Width = mobileColumnWidth;
             lvDisplay.EndUpdate();
         }
 
