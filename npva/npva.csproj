@@ -90,6 +90,9 @@
     <Compile Include="DetailListView.Designer.cs">
       <DependentUpon>DetailListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="DoubleBufferedListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Exporter\AsIsExporter.cs" />
     <Compile Include="Exporter\Exporter.cs" />
     <Compile Include="Exporter\MultipleCSVExporter.cs" />

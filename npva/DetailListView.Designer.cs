@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lvDisplay = new System.Windows.Forms.ListView();
+            this.lvDisplay = new npva.DoubleBufferedListView();
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chPCPv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chMobilePv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -163,7 +163,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView lvDisplay;
+        private npva.DoubleBufferedListView lvDisplay;
         private System.Windows.Forms.ColumnHeader chDate;
         private System.Windows.Forms.ColumnHeader chPCPv;
         private System.Windows.Forms.ColumnHeader chMobilePv;
