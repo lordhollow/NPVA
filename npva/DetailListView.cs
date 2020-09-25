@@ -49,8 +49,8 @@ namespace npva
             ArrangedTitle = null;
 
             chDate.Text = "Title";
+            lvDisplay.BeginUpdate();
             lvDisplay.Items.Clear();
-            lvDisplay.SuspendLayout();
             foreach (var title in author.Titles)
             {
                 var item = new ListViewItem($"{title.ID} {title.Name}");
@@ -60,7 +60,7 @@ namespace npva
                 if (score != null) registorScoreInfo(pvScore, score, scoreD, item);
                 lvDisplay.Items.Add(item);
             }
-            lvDisplay.ResumeLayout();
+            lvDisplay.EndUpdate();
         }
 
         /// <summary>
@@ -73,8 +73,8 @@ namespace npva
             ArrangedTitle = title;
 
             chDate.Text = "Date";
+            lvDisplay.BeginUpdate();
             lvDisplay.Items.Clear();
-            lvDisplay.SuspendLayout();
             //総計
             {
                 var item = new ListViewItem("total");
@@ -100,7 +100,7 @@ namespace npva
                 lvDisplay.Items.Add(item);
             }
 
-            lvDisplay.ResumeLayout();
+            lvDisplay.EndUpdate();
         }
 
         /// <summary>
