@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -238,7 +239,7 @@ namespace npva
             keys.ForEach(key => ppvd[key] = new int[ms + 1]);
 
             //解析
-            countupPPV(t, ppvd);
+            var columnMax = countupPPV(t, ppvd);
 
             //累積化
             if (sumup) ResolveSumup(ppvd, keys, ms);
@@ -251,11 +252,17 @@ namespace npva
             for (var s = 1; s < ms + 1; s++)
             {
                 var r = listView.Items.Add(s == 0 ? "index" : $"第{s}部分");
+                r.UseItemStyleForSubItems = sumup;
                 foreach (var k in keys)
                 {
                     if (ppvd.ContainsKey(k))
                     {
-                        r.SubItems.Add(ppvd[k][s].ToString("#,0"));
+                        var subitem = r.SubItems.Add(ppvd[k][s].ToString("#,0"));
+                        //累積でないときヒートマップ化する
+                        if (!sumup)
+                        {
+                            subitem.BackColor = GetHeatmapColor(columnMax, ppvd[k][s]);
+                        }
                     }
                     else
                     {
@@ -266,13 +273,28 @@ namespace npva
         }
 
         /// <summary>
+        /// ヒートマップの色を取得
+        /// </summary>
+        /// <param name="columnMax"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        private Color GetHeatmapColor(int columnMax, int v)
+        {
+            var ratio = v * 1.0 / columnMax;
+            var level = (int)(255.0 * ratio);
+            level = 255 - level;
+            return Color.FromArgb(255, level, level);
+        }
+
+        /// <summary>
         /// 部分別を日付キーの辞書に話数の配列を入れて返す
         /// </summary>
         /// <param name="t">作品</param>
-        /// <param name="ms">話数</param>
-        /// <returns>カウント結果</returns>
-        private void countupPPV(Title t, Dictionary<string, int[]> ppvd)
+        /// <param name="ppvd">カウント結果（期間表示文字をキーとした、部位別PV配列）</param>
+        /// <returns>カウント結果に含まれる数字で最大の物（ただしその最小値は100）</returns>
+        private int countupPPV(Title t, Dictionary<string, int[]> ppvd)
         {
+            var max = 10;
             foreach (var score in t.Score.Where(x => x.PartPvChecked))
             {
                 //scoreがrange以内か判定する
@@ -286,11 +308,13 @@ namespace npva
                     if (ppv.Part < pd.Length)
                     {
                         pd[ppv.Part] += ppv.PageView;
+                        if (max < pd[ppv.Part]) max = pd[ppv.Part];
                     }
                 }
                 //部位別総計とその日のユニークの誤差＝目次のPV?なんか計算合わない（マイナスになるときがある）
                 pd[0] = score.UniquePageView - tpv;
             }
+            return max;
         }
 
         /// <summary>
