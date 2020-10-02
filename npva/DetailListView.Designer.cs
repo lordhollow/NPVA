@@ -38,14 +38,14 @@
             this.chBookmark = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chImpression = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chReview = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chSeries = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDaily = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chWeekly = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chMonthly = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chQuater = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chYear = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chGlobalPt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chSeries = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lvDisplay
@@ -107,15 +107,48 @@
             // 
             // chBookmark
             // 
+            this.chBookmark.DisplayIndex = 7;
             this.chBookmark.Text = "ブクマ";
             // 
             // chImpression
             // 
+            this.chImpression.DisplayIndex = 8;
             this.chImpression.Text = "感想";
             // 
             // chReview
             // 
+            this.chReview.DisplayIndex = 9;
             this.chReview.Text = "レビュー";
+            // 
+            // chDaily
+            // 
+            this.chDaily.DisplayIndex = 10;
+            this.chDaily.Text = "日pt";
+            // 
+            // chWeekly
+            // 
+            this.chWeekly.DisplayIndex = 11;
+            this.chWeekly.Text = "週pt";
+            // 
+            // chMonthly
+            // 
+            this.chMonthly.DisplayIndex = 12;
+            this.chMonthly.Text = "月pt";
+            // 
+            // chQuater
+            // 
+            this.chQuater.DisplayIndex = 13;
+            this.chQuater.Text = "季pt";
+            // 
+            // chYear
+            // 
+            this.chYear.DisplayIndex = 14;
+            this.chYear.Text = "年pt";
+            // 
+            // chGlobalPt
+            // 
+            this.chGlobalPt.DisplayIndex = 6;
+            this.chGlobalPt.Text = "総pt";
             // 
             // chSeries
             // 
@@ -124,30 +157,6 @@
             // chSize
             // 
             this.chSize.Text = "文字数";
-            // 
-            // chDaily
-            // 
-            this.chDaily.Text = "日pt";
-            // 
-            // chWeekly
-            // 
-            this.chWeekly.Text = "週pt";
-            // 
-            // chMonthly
-            // 
-            this.chMonthly.Text = "月pt";
-            // 
-            // chQuater
-            // 
-            this.chQuater.Text = "季pt";
-            // 
-            // chYear
-            // 
-            this.chYear.Text = "年pt";
-            // 
-            // chGlobalPt
-            // 
-            this.chGlobalPt.Text = "総pt";
             // 
             // DetailListView
             // 
