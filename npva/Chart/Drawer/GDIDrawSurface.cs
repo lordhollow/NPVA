@@ -161,6 +161,12 @@ namespace npva.Chart.Drawer
             chart?.PointerSet(e.X, e.Y);
         }
 
+
+        /// <summary>
+        /// 最後のツールチップ
+        /// </summary>
+        string lastToopTip = "";
+
         /// <summary>
         /// 軸ポイントイベント処理（ツールチップ表示）
         /// </summary>
@@ -168,7 +174,12 @@ namespace npva.Chart.Drawer
         /// <param name="e"></param>
         private void Chart_AxisPointed(object sender, AxisPointedEventArgs e)
         {
-            tpChart.SetToolTip(this, chart.GetPointedString(Math.Floor(e.X)));
+            var toolTip = chart.GetPointedString(Math.Floor(e.X));
+            if (toolTip != lastToopTip)
+            {
+                lastToopTip = toolTip;
+                tpChart.SetToolTip(this, toolTip);
+            }
         }
 
     }
