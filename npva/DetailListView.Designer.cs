@@ -81,6 +81,7 @@
             this.lvDisplay.TabIndex = 0;
             this.lvDisplay.UseCompatibleStateImageBehavior = false;
             this.lvDisplay.View = System.Windows.Forms.View.Details;
+            this.lvDisplay.DoubleClick += new System.EventHandler(this.lvDisplay_DoubleClick);
             // 
             // chDate
             // 

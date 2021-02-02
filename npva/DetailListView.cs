@@ -40,6 +40,15 @@ namespace npva
         /// 携帯電話からのアクセスを示すカラムの幅
         /// </summary>
         int DefaultMobileColumnWidth = 0;
+        
+        /// <summary>
+        /// 毎日確認データのカラム数
+        /// </summary>
+        const int DailyColumnWidth= 12;
+        /// <summary>
+        /// イベントを書き込むカラムの場所
+        /// </summary>
+        const int EventColumnNo= 17;
 
         /// <summary>
         /// 初期化
@@ -216,7 +225,7 @@ namespace npva
             }
             else
             {
-                for (var i = 0; i < 12; i++)
+                for (var i = 0; i < DailyColumnWidth; i++)
                 {
                     item.SubItems.Add("");
                 }
@@ -244,5 +253,42 @@ namespace npva
                 item.SubItems.Add($"{pv:#,0}({unique})");
             }
         }
+
+        private void lvDisplay_DoubleClick(object sender, EventArgs e)
+        {
+            if (ArrangedAuthor != null) return;
+            if (lvDisplay.SelectedIndices.Count >0)
+            {
+                var score = lvDisplay.SelectedItems[0].Tag as DB.DailyScore;
+                if (score != null)
+                {
+                    var dt = new ScoreViewDialog();
+                    dt.Set(ArrangedAuthor, ArrangedTitle, score);
+                    if (dt.ShowDialog() == DialogResult.OK)
+                    {
+                        var eventString = dt.EventString;
+                        lvDisplay.SelectedItems[0].SubItems[EventColumnNo].Text = eventString;
+                        if (string.IsNullOrEmpty(eventString)) eventString = null;
+                        score.Event = eventString;
+                        ScoreDataUpdated?.Invoke(this, new ScoreDataUpdateEventArgs { Date = score.Date, EventString = eventString });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// スコアデータが更新されたか？(ダブルクリックしてイベント入力したとき）
+        /// </summary>
+        public event EventHandler<ScoreDataUpdateEventArgs> ScoreDataUpdated;
     }
+
+    /// <summary>
+    /// スコア書き換えイベントデータ：キー(日付)と、編集可能な項目
+    /// </summary>
+    public class ScoreDataUpdateEventArgs
+    {
+        public DateTime Date;
+        public string EventString;
+    }
+
 }

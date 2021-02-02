@@ -36,6 +36,7 @@ namespace npva
         public NPVAMain()
         {
             InitializeComponent();
+            dlvTitleInfo.ScoreDataUpdated += DlvTitleInfo_ScoreDataUpdated;
         }
 
         /// <summary>
@@ -430,6 +431,24 @@ namespace npva
                 if (a!= null)
                 {
                     a.Analyze(t, lvPartPv);
+                }
+            }
+        }
+
+        /// <summary>
+        /// スコアデータ更新(備考書き換え）：UIは変更済みなのでアナライザの持ってるデータを書き換える。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DlvTitleInfo_ScoreDataUpdated(object sender, ScoreDataUpdateEventArgs e)
+        {
+            var entry = lstTitles.SelectedItem as TitleListEntry;
+            if (entry != null)
+            {
+                var title = entry.Title;
+                if (analyzer != null)
+                {
+                    analyzer.Edit(title.ID, e.Date.Date, e.EventString);
                 }
             }
         }
