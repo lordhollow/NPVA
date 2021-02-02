@@ -102,6 +102,12 @@
     <Compile Include="ExportForm.Designer.cs">
       <DependentUpon>ExportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScoreViewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScoreViewDialog.Designer.cs">
+      <DependentUpon>ScoreViewDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExportForm.resx">
       <DependentUpon>ExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScoreViewDialog.resx">
+      <DependentUpon>ScoreViewDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogForm.resx">
       <DependentUpon>LogForm.cs</DependentUpon>
