@@ -93,6 +93,19 @@ namespace npva.DB
             Name = string.Join(", ", nameList);
         }
 
+        /// <summary>
+        /// インデクサ(参照のみ。ncode指定で作品データ取得）なければnull
+        /// </summary>
+        /// <param name="ncode"></param>
+        /// <returns></returns>
+        public Title this[string ncode]
+        {
+            get
+            {
+                ncode = ncode.ToUpper();
+                return Titles?.FirstOrDefault(x => x.ID?.ToUpper() == ncode);
+            }
+        }
 
         /// <summary>
         /// 保存

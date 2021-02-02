@@ -215,6 +215,21 @@ namespace npva.DB
         }
 
         /// <summary>
+        /// 日付でデータ取得
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public DailyScore this[DateTime dt]
+        {
+            get
+            {
+                dt = dt.Date;
+                return Score.FirstOrDefault(x => x.Date.Date == dt);
+            }
+        }
+
+
+        /// <summary>
         /// 表示(デバッグ用） Ncode + タイトル
         /// </summary>
         /// <returns></returns>
