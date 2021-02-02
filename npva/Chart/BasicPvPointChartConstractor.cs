@@ -102,6 +102,7 @@ namespace npva.Chart
             double pv = 0;
             double upv = 0;
             int ll = 0;
+            List<DailyScore> scoreWithEvent = new List<DailyScore>();
             foreach (var score in title.Score)
             {
                 if (score.Date >= BaseDate)   //基準日以降
@@ -138,6 +139,10 @@ namespace npva.Chart
                     if (score.HasScoreInfo)
                     {
                         sPt.Add(l, score.Points);
+                    }
+                    if (!string.IsNullOrEmpty(score.Event))
+                    {
+                        scoreWithEvent.Add(score);
                     }
                 }
             }
@@ -209,6 +214,12 @@ namespace npva.Chart
             //初回更新マーカー必要？
             if (BaseDate < title.FirstUp)
             {
+            }
+
+            //イベントマーカー
+            foreach(var score in scoreWithEvent)
+            {
+                chart.AddDrawableObject(GetEventMarker(chart.AxisX, chart.AxisY1, (int)(score.Date - BaseDate).TotalDays, score.Event));
             }
         }
 

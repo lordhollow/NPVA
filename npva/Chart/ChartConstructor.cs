@@ -235,7 +235,20 @@ namespace npva.Chart
                 VerticalAlign = StringAlignment.Near,
                 DrawVerticalLine = true,
             };
+        }
 
+        protected static IDrawableObject GetEventMarker(Axis aX, Axis aY, int date, string caption)
+        {
+            return new AxisDependantString(aX, aY)
+            {
+                LogicalX = date,
+                LogicalY = 0,
+                Message = $"{caption}\r\n\r\n",
+                Color = System.Drawing.Color.Red,
+                HolizontalAlign = StringAlignment.Near,
+                VerticalAlign = StringAlignment.Far,
+                DrawVerticalLine = true,
+            };
         }
     }
     
