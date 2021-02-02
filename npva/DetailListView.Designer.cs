@@ -46,6 +46,7 @@
             this.chGlobalPt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chSeries = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chEvent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lvDisplay
@@ -68,7 +69,8 @@
             this.chYear,
             this.chGlobalPt,
             this.chSeries,
-            this.chSize});
+            this.chSize,
+            this.chEvent});
             this.lvDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvDisplay.FullRowSelect = true;
             this.lvDisplay.GridLines = true;
@@ -158,6 +160,11 @@
             // 
             this.chSize.Text = "文字数";
             // 
+            // chEvent
+            // 
+            this.chEvent.Text = "イベント";
+            this.chEvent.Width = 180;
+            // 
             // DetailListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -190,5 +197,6 @@
         private System.Windows.Forms.ColumnHeader chQuater;
         private System.Windows.Forms.ColumnHeader chYear;
         private System.Windows.Forms.ColumnHeader chGlobalPt;
+        private System.Windows.Forms.ColumnHeader chEvent;
     }
 }

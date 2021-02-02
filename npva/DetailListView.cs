@@ -174,6 +174,7 @@ namespace npva
             {
                 if ((diffScore == null) || (!diffScore.HasScoreInfo))
                 {
+                    //通常表示モード
                     if (score.Votes == 0)
                     {
                         item.SubItems.Add("none");
@@ -197,6 +198,7 @@ namespace npva
                 }
                 else
                 {
+                    //比較表示モード
                     var signed = "+#,0;-#,0; ";
                     item.SubItems.Add($"{(score.VoteAverage - diffScore.VoteAverage).ToString("+#,0.0;-#,0.0")}({(score.Votes - diffScore.Votes).ToString("+#,0;-#,0;±0")}人)");
                     item.SubItems.Add($"{(score.Bookmarks - diffScore.Bookmarks).ToString(signed)}");
@@ -212,6 +214,14 @@ namespace npva
                     item.SubItems.Add($"{(score.Size - diffScore.Size).ToString(signed)}");
                 }
             }
+            else
+            {
+                for (var i = 0; i < 12; i++)
+                {
+                    item.SubItems.Add("");
+                }
+            }
+            item.SubItems.Add($"{score.Event}");
         }
 
         /// <summary>

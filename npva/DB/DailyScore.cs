@@ -199,6 +199,13 @@ namespace npva.DB
         [DefaultValue(NoData)]
         public int Points { get; set; } = NoData;
 
+
+        /// <summary>
+        /// メモ
+        /// </summary>
+        [XmlAttribute("event")]
+        public string Event { get; set; } = null;
+
         /// <summary>
         /// PV部分のマージ
         /// </summary>
