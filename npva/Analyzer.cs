@@ -547,6 +547,32 @@ namespace npva
             return f ? 0 : d / cnt; //データが一個もないときfがtrueのままなので。
         }
 
+        /// <summary>
+        /// 指定データのイベント文字列更新
+        /// </summary>
+        /// <param name="ncode"></param>
+        /// <param name="date"></param>
+        /// <param name="eventString"></param>
+        /// <returns></returns>
+        public bool Edit(string ncode, DateTime date, string eventString)
+        {
+            bool ret = false;
+            AnalyzingLockContext(() =>
+            {
+                var score = authorInfo[ncode][date];
+                if (score != null)
+                {
+                    if (score.Event != eventString)
+                    {
+                        score.Event = eventString;
+                        Save();
+                    }
+                }
+            });
+
+            return ret;
+        }
+
 
         /// <summary>
         /// アナライザの内部処理の順序性利用ロックコンテキスト内で実行
