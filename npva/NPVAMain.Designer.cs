@@ -50,10 +50,12 @@
             this.pR = new System.Windows.Forms.Panel();
             this.tabInfo = new System.Windows.Forms.TabControl();
             this.tpList = new System.Windows.Forms.TabPage();
+            this.dlvTitleInfo = new npva.DetailListView();
             this.cmenuDetailList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmenuBrowsePartPv = new System.Windows.Forms.ToolStripMenuItem();
             this.tpChart = new System.Windows.Forms.TabPage();
             this.spChartLR = new System.Windows.Forms.SplitContainer();
+            this.chartDrawer = new npva.Chart.Drawer.GDIDrawSurface();
             this.lvAnalyzed = new System.Windows.Forms.ListView();
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -65,12 +67,10 @@
             this.tpPart = new System.Windows.Forms.TabPage();
             this.lvPartPv = new System.Windows.Forms.ListView();
             this.pPPVControl = new System.Windows.Forms.Panel();
+            this.cmbPPVAnalyzer = new System.Windows.Forms.ComboBox();
             this.lblSizeInfo = new System.Windows.Forms.Label();
             this.lblUpdateInfo = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.dlvTitleInfo = new npva.DetailListView();
-            this.chartDrawer = new npva.Chart.Drawer.GDIDrawSurface();
-            this.cmbPPVAnalyzer = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.spLR)).BeginInit();
             this.spLR.Panel1.SuspendLayout();
             this.spLR.Panel2.SuspendLayout();
@@ -105,7 +105,7 @@
             // spLR.Panel2
             // 
             this.spLR.Panel2.Controls.Add(this.pR);
-            this.spLR.Size = new System.Drawing.Size(1097, 458);
+            this.spLR.Size = new System.Drawing.Size(1472, 643);
             this.spLR.SplitterDistance = 221;
             this.spLR.TabIndex = 2;
             // 
@@ -123,7 +123,7 @@
             this.pL.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pL.Location = new System.Drawing.Point(0, 0);
             this.pL.Name = "pL";
-            this.pL.Size = new System.Drawing.Size(221, 458);
+            this.pL.Size = new System.Drawing.Size(221, 643);
             this.pL.TabIndex = 0;
             // 
             // menuStripMain
@@ -244,7 +244,7 @@
             this.lstTitles.ItemHeight = 12;
             this.lstTitles.Location = new System.Drawing.Point(12, 151);
             this.lstTitles.Name = "lstTitles";
-            this.lstTitles.Size = new System.Drawing.Size(202, 295);
+            this.lstTitles.Size = new System.Drawing.Size(202, 480);
             this.lstTitles.TabIndex = 5;
             this.lstTitles.SelectedIndexChanged += new System.EventHandler(this.lstTitles_SelectedIndexChanged);
             // 
@@ -294,7 +294,7 @@
             this.pR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pR.Location = new System.Drawing.Point(0, 0);
             this.pR.Name = "pR";
-            this.pR.Size = new System.Drawing.Size(872, 458);
+            this.pR.Size = new System.Drawing.Size(1247, 643);
             this.pR.TabIndex = 1;
             // 
             // tabInfo
@@ -308,7 +308,7 @@
             this.tabInfo.Location = new System.Drawing.Point(10, 78);
             this.tabInfo.Name = "tabInfo";
             this.tabInfo.SelectedIndex = 0;
-            this.tabInfo.Size = new System.Drawing.Size(859, 377);
+            this.tabInfo.Size = new System.Drawing.Size(1234, 562);
             this.tabInfo.TabIndex = 3;
             // 
             // tpList
@@ -317,10 +317,19 @@
             this.tpList.Location = new System.Drawing.Point(4, 22);
             this.tpList.Name = "tpList";
             this.tpList.Padding = new System.Windows.Forms.Padding(3);
-            this.tpList.Size = new System.Drawing.Size(851, 351);
+            this.tpList.Size = new System.Drawing.Size(1226, 536);
             this.tpList.TabIndex = 0;
             this.tpList.Text = "List";
             this.tpList.UseVisualStyleBackColor = true;
+            // 
+            // dlvTitleInfo
+            // 
+            this.dlvTitleInfo.ContextMenuStrip = this.cmenuDetailList;
+            this.dlvTitleInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dlvTitleInfo.Location = new System.Drawing.Point(3, 3);
+            this.dlvTitleInfo.Name = "dlvTitleInfo";
+            this.dlvTitleInfo.Size = new System.Drawing.Size(1220, 530);
+            this.dlvTitleInfo.TabIndex = 0;
             // 
             // cmenuDetailList
             // 
@@ -368,6 +377,14 @@
             this.spChartLR.Size = new System.Drawing.Size(845, 321);
             this.spChartLR.SplitterDistance = 639;
             this.spChartLR.TabIndex = 0;
+            // 
+            // chartDrawer
+            // 
+            this.chartDrawer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartDrawer.Location = new System.Drawing.Point(0, 0);
+            this.chartDrawer.Name = "chartDrawer";
+            this.chartDrawer.Size = new System.Drawing.Size(639, 321);
+            this.chartDrawer.TabIndex = 0;
             // 
             // lvAnalyzed
             // 
@@ -470,6 +487,16 @@
             this.pPPVControl.Size = new System.Drawing.Size(845, 37);
             this.pPPVControl.TabIndex = 1;
             // 
+            // cmbPPVAnalyzer
+            // 
+            this.cmbPPVAnalyzer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPPVAnalyzer.FormattingEnabled = true;
+            this.cmbPPVAnalyzer.Location = new System.Drawing.Point(3, 3);
+            this.cmbPPVAnalyzer.Name = "cmbPPVAnalyzer";
+            this.cmbPPVAnalyzer.Size = new System.Drawing.Size(180, 20);
+            this.cmbPPVAnalyzer.TabIndex = 0;
+            this.cmbPPVAnalyzer.SelectedIndexChanged += new System.EventHandler(this.cmbPPVAnalyzer_SelectedIndexChanged);
+            // 
             // lblSizeInfo
             // 
             this.lblSizeInfo.AutoSize = true;
@@ -498,38 +525,11 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "TITLE";
             // 
-            // dlvTitleInfo
-            // 
-            this.dlvTitleInfo.ContextMenuStrip = this.cmenuDetailList;
-            this.dlvTitleInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dlvTitleInfo.Location = new System.Drawing.Point(3, 3);
-            this.dlvTitleInfo.Name = "dlvTitleInfo";
-            this.dlvTitleInfo.Size = new System.Drawing.Size(845, 345);
-            this.dlvTitleInfo.TabIndex = 0;
-            // 
-            // chartDrawer
-            // 
-            this.chartDrawer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartDrawer.Location = new System.Drawing.Point(0, 0);
-            this.chartDrawer.Name = "chartDrawer";
-            this.chartDrawer.Size = new System.Drawing.Size(639, 321);
-            this.chartDrawer.TabIndex = 0;
-            // 
-            // cmbPPVAnalyzer
-            // 
-            this.cmbPPVAnalyzer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPPVAnalyzer.FormattingEnabled = true;
-            this.cmbPPVAnalyzer.Location = new System.Drawing.Point(3, 3);
-            this.cmbPPVAnalyzer.Name = "cmbPPVAnalyzer";
-            this.cmbPPVAnalyzer.Size = new System.Drawing.Size(180, 20);
-            this.cmbPPVAnalyzer.TabIndex = 0;
-            this.cmbPPVAnalyzer.SelectedIndexChanged += new System.EventHandler(this.cmbPPVAnalyzer_SelectedIndexChanged);
-            // 
             // NPVAMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1097, 458);
+            this.ClientSize = new System.Drawing.Size(1472, 643);
             this.Controls.Add(this.spLR);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NPVAMain";
