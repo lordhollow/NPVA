@@ -62,6 +62,14 @@ namespace npva.Chart
                 if (!conf.CCIgnoreDailyPv) yield return new BasicPvPointChartConstractor(365, false, false);
                 if (!conf.CCIgnoreMovingAverage) yield return new BasicPvPointChartConstractor(365, false, true);
             }
+            if (conf.CCIncludeUserRange)
+            {
+                var d = conf.CCUserRange;
+                if (d <= 0) d = 1;
+                if (!conf.CCIgnoreTotalPv) yield return new BasicPvPointChartConstractor(d, true, false);
+                if (!conf.CCIgnoreDailyPv) yield return new BasicPvPointChartConstractor(d, false, false);
+                if (!conf.CCIgnoreMovingAverage) yield return new BasicPvPointChartConstractor(d, false, true);
+            }
 
             Parameter.ExcludePV = conf.ChartExcludePV;
             Parameter.ExcludeUnique = conf.ChartExcludeUnique;

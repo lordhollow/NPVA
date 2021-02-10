@@ -274,5 +274,29 @@ namespace npva.Properties {
                 this["PPVDays"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CCIncludeUserRange {
+            get {
+                return ((bool)(this["CCIncludeUserRange"]));
+            }
+            set {
+                this["CCIncludeUserRange"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int CCUserRange {
+            get {
+                return ((int)(this["CCUserRange"]));
+            }
+            set {
+                this["CCUserRange"] = value;
+            }
+        }
     }
 }
