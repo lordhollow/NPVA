@@ -99,9 +99,18 @@ namespace npva.Chart.Drawer
         {
             if (fillColor != Color.Transparent)
             {
-                graphics.FillRectangle(Brushes.Black, rect);
+                using (var brush = new SolidBrush(fillColor))
+                {
+                    graphics.FillRectangle(brush, rect);
+                }
             }
-            graphics.DrawRectangle(Pens.Black, rect.X, rect.Y, rect.Width, rect.Height);
+            if (color != fillColor)
+            {   //同色なら箱を書き直す必要はないので
+                using (var pen = new Pen(color, 1))
+                {
+                    graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width, rect.Height);
+                }
+            }
         }
 
         /// <summary>

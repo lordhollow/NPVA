@@ -89,6 +89,11 @@ namespace npva.Chart
         public string ValueStringFormat = "#,0";
 
         /// <summary>
+        /// 棒グラフで書く(falseの時は折れ線)
+        /// </summary>
+        public bool DrawBarChart { get; set; } = false;
+
+        /// <summary>
         /// 描画
         /// </summary>
         /// <param name="context"></param>
@@ -97,6 +102,18 @@ namespace npva.Chart
         public override void Draw(IDrawContext context, Axis axisX, Axis axisY)
         {
             if (items.Count == 0) return;
+            if (DrawBarChart)
+            {
+                drawBarChart(context, axisX, axisY);
+            }
+            else
+            {
+                drawLineChart(context, axisX, axisY);
+            }
+        }
+
+        private void drawLineChart(IDrawContext context, Axis axisX, Axis axisY)
+        {
             var plotBase = new PointF(context.PlotArea.Left, context.PlotArea.Top);
             var startP = new PointF();
             var endP = new PointF();
@@ -118,6 +135,49 @@ namespace npva.Chart
                     startP = endP;
                 }
             }
+        }
+
+        private void drawBarChart(IDrawContext context, Axis axisX, Axis axisY)
+        {
+            var plotBase = new PointF(context.PlotArea.Left, context.PlotArea.Top);
+
+            //まずx=1の幅を求める
+            float dx = 0;
+            {
+                const int mergin = 2;               //マージン
+                const float minWidh = 1f;           //最低幅
+                var pX1 = new PointF();
+                setPhisicalPos(ref pX1, 1, 0, axisX, axisY, plotBase);  //x=1の場所
+                dx = (pX1.X - plotBase.X - mergin); //1要素の幅(原点とx=1の差)
+                if (dx <= minWidh) dx = minWidh;    //最低幅クリップ
+            }
+
+            //全部描く
+            for (var i = 0; i < items.Count; i++)
+            {
+                if (items[i].Value > 0) //ゼロは書かない
+                {
+                    //箱座標
+                    PointF pTop = new PointF();
+                    setPhisicalPos(ref pTop, items[i].Key, items[i].Value, axisX, axisY, plotBase);
+                    var rect = new RectangleF(pTop.X - (dx / 2), pTop.Y, dx, context.PlotArea.Bottom - pTop.Y);
+                    //左端より出てる分を切り捨てる
+                    if (rect.Left < plotBase.X)
+                    {
+                        var sub = plotBase.X - rect.Left;
+                        rect.X = plotBase.X;
+                        rect.Width -= sub;
+                    }
+                    //右端より出てる分を切り捨てる
+                    if (rect.Right > context.PlotArea.Right)
+                    {
+                        rect.Width -= (rect.Right - context.PlotArea.Right);
+                    }
+                    //箱描画
+                    context.DrawRect(rect, 1, Color, Color);
+                }
+            }
+
         }
 
         /// <summary>
@@ -219,7 +279,7 @@ namespace npva.Chart
         /// <param name="pos"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        double?  getMovingAverage(int pos, int size)
+        double? getMovingAverage(int pos, int size)
         {
             var half = size / 2;
             //データが足りてないので計算できない区画はNULL
@@ -240,7 +300,7 @@ namespace npva.Chart
             else
             {
                 var sum = items[pos - half].Value + items[pos + half].Value;
-                for (var i=pos-half+1;i<pos+half-1; i++)
+                for (var i = pos - half + 1; i < pos + half - 1; i++)
                 {
                     sum += items[i].Value * 2;
                 }

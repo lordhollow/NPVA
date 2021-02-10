@@ -91,6 +91,12 @@ namespace npva.Chart
             var sUPv = new SimpleSeries() { Color = Parameter.UniquePageViewColor, Name = "Unique" };
             if (!MovingAvg && !Parameter.ExcludeUnique) chart.ArrangeSeries(AxisType.YLeft, sUPv);
             var sPt = new SimpleSeries() { Color = Parameter.PointColor, Name="Points" };
+            if (!PVSumUp)
+            {
+                //累計でないPVは棒グラフ
+                sPv.DrawBarChart = true;
+                sUPv.DrawBarChart = true;
+            }
 
             //累計グラフはゼロ点を設定しておく(初回にPV!=0になるところからしか線が出ないため
             if (PVSumUp)
