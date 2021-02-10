@@ -58,9 +58,12 @@
             this.rbChartSaveSized = new System.Windows.Forms.RadioButton();
             this.rbChartSaveAsIs = new System.Windows.Forms.RadioButton();
             this.gbPPV = new System.Windows.Forms.GroupBox();
-            this.chkPPVWeekFromMonday = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.numPPVDays = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.chkPPVWeekFromMonday = new System.Windows.Forms.CheckBox();
+            this.chkCCIncludeUserRange = new System.Windows.Forms.CheckBox();
+            this.numCCUserRange = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numSummalyLen)).BeginInit();
             this.gbChartConstractor.SuspendLayout();
             this.gbChart.SuspendLayout();
@@ -69,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numChartSaveW)).BeginInit();
             this.gbPPV.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPPVDays)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCCUserRange)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -131,6 +135,9 @@
             // 
             // gbChartConstractor
             // 
+            this.gbChartConstractor.Controls.Add(this.label7);
+            this.gbChartConstractor.Controls.Add(this.numCCUserRange);
+            this.gbChartConstractor.Controls.Add(this.chkCCIncludeUserRange);
             this.gbChartConstractor.Controls.Add(this.chkCCIgnoreAllTime);
             this.gbChartConstractor.Controls.Add(this.chkCCIgnoreBacklog365);
             this.gbChartConstractor.Controls.Add(this.chkCCIgnoreBacklog180);
@@ -142,7 +149,7 @@
             this.gbChartConstractor.Controls.Add(this.chkCCIgnoreMovingAvg);
             this.gbChartConstractor.Location = new System.Drawing.Point(20, 87);
             this.gbChartConstractor.Name = "gbChartConstractor";
-            this.gbChartConstractor.Size = new System.Drawing.Size(606, 95);
+            this.gbChartConstractor.Size = new System.Drawing.Size(606, 116);
             this.gbChartConstractor.TabIndex = 6;
             this.gbChartConstractor.TabStop = false;
             this.gbChartConstractor.Text = "チャートの候補";
@@ -243,7 +250,7 @@
             this.gbChart.Controls.Add(this.chkChartIgnoreScore);
             this.gbChart.Controls.Add(this.chkChartIgnoreUnique);
             this.gbChart.Controls.Add(this.chkChartIgnorePV);
-            this.gbChart.Location = new System.Drawing.Point(20, 188);
+            this.gbChart.Location = new System.Drawing.Point(20, 209);
             this.gbChart.Name = "gbChart";
             this.gbChart.Size = new System.Drawing.Size(606, 65);
             this.gbChart.TabIndex = 7;
@@ -292,7 +299,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(551, 362);
+            this.btnOK.Location = new System.Drawing.Point(551, 383);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 8;
@@ -308,7 +315,7 @@
             this.gbChartSave.Controls.Add(this.numChartSaveW);
             this.gbChartSave.Controls.Add(this.rbChartSaveSized);
             this.gbChartSave.Controls.Add(this.rbChartSaveAsIs);
-            this.gbChartSave.Location = new System.Drawing.Point(20, 259);
+            this.gbChartSave.Location = new System.Drawing.Point(20, 280);
             this.gbChartSave.Name = "gbChartSave";
             this.gbChartSave.Size = new System.Drawing.Size(606, 39);
             this.gbChartSave.TabIndex = 9;
@@ -384,31 +391,12 @@
             this.gbPPV.Controls.Add(this.numPPVDays);
             this.gbPPV.Controls.Add(this.label6);
             this.gbPPV.Controls.Add(this.chkPPVWeekFromMonday);
-            this.gbPPV.Location = new System.Drawing.Point(20, 304);
+            this.gbPPV.Location = new System.Drawing.Point(20, 325);
             this.gbPPV.Name = "gbPPV";
             this.gbPPV.Size = new System.Drawing.Size(606, 52);
             this.gbPPV.TabIndex = 10;
             this.gbPPV.TabStop = false;
             this.gbPPV.Text = "部位別PV表示";
-            // 
-            // chkPPVWeekFromMonday
-            // 
-            this.chkPPVWeekFromMonday.AutoSize = true;
-            this.chkPPVWeekFromMonday.Location = new System.Drawing.Point(6, 18);
-            this.chkPPVWeekFromMonday.Name = "chkPPVWeekFromMonday";
-            this.chkPPVWeekFromMonday.Size = new System.Drawing.Size(117, 16);
-            this.chkPPVWeekFromMonday.TabIndex = 2;
-            this.chkPPVWeekFromMonday.Text = "月曜日始まりにする";
-            this.chkPPVWeekFromMonday.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(206, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 12);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "日間表示数";
             // 
             // numPPVDays
             // 
@@ -432,11 +420,61 @@
             0,
             0});
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(206, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "日間表示数";
+            // 
+            // chkPPVWeekFromMonday
+            // 
+            this.chkPPVWeekFromMonday.AutoSize = true;
+            this.chkPPVWeekFromMonday.Location = new System.Drawing.Point(6, 18);
+            this.chkPPVWeekFromMonday.Name = "chkPPVWeekFromMonday";
+            this.chkPPVWeekFromMonday.Size = new System.Drawing.Size(117, 16);
+            this.chkPPVWeekFromMonday.TabIndex = 2;
+            this.chkPPVWeekFromMonday.Text = "月曜日始まりにする";
+            this.chkPPVWeekFromMonday.UseVisualStyleBackColor = true;
+            // 
+            // chkCCIncludeUserRange
+            // 
+            this.chkCCIncludeUserRange.AutoSize = true;
+            this.chkCCIncludeUserRange.Location = new System.Drawing.Point(6, 91);
+            this.chkCCIncludeUserRange.Name = "chkCCIncludeUserRange";
+            this.chkCCIncludeUserRange.Size = new System.Drawing.Size(72, 16);
+            this.chkCCIncludeUserRange.TabIndex = 13;
+            this.chkCCIncludeUserRange.Text = "任意期間";
+            this.chkCCIncludeUserRange.UseVisualStyleBackColor = true;
+            // 
+            // numCCUserRange
+            // 
+            this.numCCUserRange.Location = new System.Drawing.Point(84, 88);
+            this.numCCUserRange.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.numCCUserRange.Name = "numCCUserRange";
+            this.numCCUserRange.Size = new System.Drawing.Size(82, 19);
+            this.numCCUserRange.TabIndex = 11;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(172, 91);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(17, 12);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "日";
+            // 
             // ConfigulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 402);
+            this.ClientSize = new System.Drawing.Size(646, 417);
             this.Controls.Add(this.gbPPV);
             this.Controls.Add(this.gbChartSave);
             this.Controls.Add(this.btnOK);
@@ -464,6 +502,7 @@
             this.gbPPV.ResumeLayout(false);
             this.gbPPV.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPPVDays)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCCUserRange)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -504,5 +543,8 @@
         private System.Windows.Forms.NumericUpDown numPPVDays;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox chkPPVWeekFromMonday;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numCCUserRange;
+        private System.Windows.Forms.CheckBox chkCCIncludeUserRange;
     }
 }

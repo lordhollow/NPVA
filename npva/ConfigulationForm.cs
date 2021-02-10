@@ -52,6 +52,8 @@ namespace npva
             chkCCIgnoreBacklog180.Checked = conf.CCIgnoreBacklog180;
             chkCCIgnoreBacklog365.Checked = conf.CCIgnoreBacklog365;
             chkCCIgnoreAllTime.Checked = conf.CCIgnoreAllTime;
+            chkCCIncludeUserRange.Checked = conf.CCIncludeUserRange;
+            numCCUserRange.Value = conf.CCUserRange;
             //Chart
             chkChartIgnorePV.Checked = conf.ChartExcludePV;
             chkChartIgnoreUnique.Checked = conf.ChartExcludeUnique;
@@ -81,6 +83,8 @@ namespace npva
             conf.CCIgnoreBacklog180 = chkCCIgnoreBacklog180.Checked;
             conf.CCIgnoreBacklog365 = chkCCIgnoreBacklog365.Checked;
             conf.CCIgnoreAllTime = chkCCIgnoreAllTime.Checked;
+            conf.CCIncludeUserRange = chkCCIncludeUserRange.Checked;
+            conf.CCUserRange = (int)numCCUserRange.Value;
             //Chart
             conf.ChartExcludePV = chkChartIgnorePV.Checked;
             conf.ChartExcludeUnique = chkChartIgnoreUnique.Checked;
