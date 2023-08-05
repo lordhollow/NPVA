@@ -71,6 +71,8 @@ namespace npva.Chart
                 if (!conf.CCIgnoreMovingAverage) yield return new BasicPvPointChartConstractor(d, false, true);
             }
 
+            yield return new PartialPvChartConstructor();
+
             Parameter.ExcludePV = conf.ChartExcludePV;
             Parameter.ExcludeUnique = conf.ChartExcludeUnique;
             Parameter.ExcludeScore = conf.ChartExcludeScore;

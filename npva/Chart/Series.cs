@@ -94,6 +94,12 @@ namespace npva.Chart
         public bool DrawBarChart { get; set; } = false;
 
         /// <summary>
+        /// バー描画するときセンタリングされるかどうか
+        /// </summary>
+        public bool BarPositionCenter { get; set; } = true;
+
+
+        /// <summary>
         /// 描画
         /// </summary>
         /// <param name="context"></param>
@@ -147,10 +153,11 @@ namespace npva.Chart
                 const int mergin = 2;               //マージン
                 const float minWidh = 1f;           //最低幅
                 var pX1 = new PointF();
-                setPhisicalPos(ref pX1, 1, 0, axisX, axisY, plotBase);  //x=1の場所
+                setPhisicalPos(ref pX1, axisX.LogicalMin + 1, 0, axisX, axisY, plotBase);  //x=1の場所
                 dx = (pX1.X - plotBase.X - mergin); //1要素の幅(原点とx=1の差)
                 if (dx <= minWidh) dx = minWidh;    //最低幅クリップ
             }
+            var offset = BarPositionCenter ? dx / 2 : 0;
 
             //全部描く
             for (var i = 0; i < items.Count; i++)
@@ -160,7 +167,7 @@ namespace npva.Chart
                     //箱座標
                     PointF pTop = new PointF();
                     setPhisicalPos(ref pTop, items[i].Key, items[i].Value, axisX, axisY, plotBase);
-                    var rect = new RectangleF(pTop.X - (dx / 2), pTop.Y, dx, context.PlotArea.Bottom - pTop.Y);
+                    var rect = new RectangleF(pTop.X - offset, pTop.Y, dx, context.PlotArea.Bottom - pTop.Y);
                     //左端より出てる分を切り捨てる
                     if (rect.Left < plotBase.X)
                     {

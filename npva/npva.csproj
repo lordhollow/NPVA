@@ -74,6 +74,7 @@
     <Compile Include="Chart\IChart.cs" />
     <Compile Include="Chart\IDrawContext.cs" />
     <Compile Include="Chart\ChartParameter.cs" />
+    <Compile Include="Chart\PartialPvChartConstructor.cs" />
     <Compile Include="Chart\Series.cs" />
     <Compile Include="ConfigulationForm.cs">
       <SubType>Form</SubType>
