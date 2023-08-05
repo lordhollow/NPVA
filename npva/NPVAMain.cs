@@ -524,7 +524,7 @@ namespace npva
             if (t != null)
             {
                 t = analyzer.getOriginalTitle(t);
-                await analyzer.AnalyzePartPvAsync(t);
+                await analyzer.AnalyzePartPvAsync(t, true);
                 analyzer.Save();
                 updateList();
             }

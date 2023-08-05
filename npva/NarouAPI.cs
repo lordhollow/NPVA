@@ -411,10 +411,28 @@ namespace npva
         /// <param name="html"></param>
         private void parsePartPvHTML(DB.DailyScore score, string html)
         {
+            //Kasasagiの使用権変更により部位別Pvのマークアップが変更されている。
+            /*
+             ≪旧≫
+                <tr>
+                <td style="padding-left:10px;">第1部分:4人
+                <div style="border:1px solid #cccccc; padding:1px; width:250px;">
+                <div style="width:100%; background:#ffccff; height:4px;"></div>
+                </div><br />
+                </td>
+            《新(いつから？)》
+                <li class="chapter-graph-list__item">
+                第1部分:13人
+                <div style="border:1px solid #cccccc; padding:1px; width:250px;">
+                <div style="width:87%; background:#ffccff; height:4px;"></div>
+                </div>
+                </li>
+             */
+
             if (string.IsNullOrEmpty(html)) return;
             score.PartPv = new List<DB.PartPv>();
             score.PartPvChecked = true;
-            var reg = new Regex(@">第(\d+)部分:(\d+)人");
+            var reg = new Regex(@">\n*第(\d+)部分:(\d+)人");
 
             MatchCollection ms = reg.Matches(html);
             foreach(Match m in ms)

@@ -180,7 +180,7 @@ namespace npva
             AnalyzingLockContext(() =>
             {
                 //カレントと違うものなら、一度消してロードする。
-                if((authorInfo == null) || (authorInfo.ID != id))
+                if ((authorInfo == null) || (authorInfo.ID != id))
                 {
                     authorInfo = null;
                     Load(id);
@@ -264,9 +264,9 @@ namespace npva
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public async Task AnalyzePartPvAsync(DB.Title t)
+        public async Task AnalyzePartPvAsync(DB.Title t, bool forceRefresh)
         {
-            var task = Task.Run(() => AnalyzePartPv(t));
+            var task = Task.Run(() => AnalyzePartPv(t, forceRefresh));
             await task;
         }
 
@@ -349,15 +349,15 @@ namespace npva
         /// 部分別PV取得(全日程）
         /// </summary>
         /// <param name="title"></param>
-        public void AnalyzePartPv(DB.Title title)
+        public void AnalyzePartPv(DB.Title title, bool forceRefresh)
         {
             AnalyzingLockContext(() =>
             {
-                foreach(var s in title.Score)
+                foreach (var s in title.Score)
                 {
-                    if (!s.PartPvChecked && (s.PageView!=0))
+                    if ((!s.PartPvChecked || forceRefresh) && (s.PageView != 0))
                     {
-                        AnalyzePartPv(title, s);
+                        AnalyzePartPv(title, s, forceRefresh);
                     }
                 }
             });
@@ -370,11 +370,11 @@ namespace npva
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <param name="day"></param>
-        public void AnalyzePartPv(DB.Title title, int year, int month, int day)
+        public void AnalyzePartPv(DB.Title title, int year, int month, int day, bool forceRefresh)
         {
             //複数の操作に分かれるものではないのでロックしない
             var daily = title.GetScore(new DateTime(year, month, day));
-            AnalyzePartPv(title, daily);
+            AnalyzePartPv(title, daily, forceRefresh);
         }
 
         /// <summary>
@@ -382,12 +382,12 @@ namespace npva
         /// </summary>
         /// <param name="title"></param>
         /// <param name="daily"></param>
-        public void AnalyzePartPv(DB.Title title, DB.DailyScore daily)
+        public void AnalyzePartPv(DB.Title title, DB.DailyScore daily, bool forceRefresh)
         {
             AnalyzingLockContext(() =>
             {
                 if ((daily == null) || (daily.PageView == 0) || (daily.Series == 1)) return;   //見るまでもないやつ(PV=0または1話しかない)
-                if (daily.PartPvChecked) return;    //取得済みならもうしない
+                if (!forceRefresh && daily.PartPvChecked) return;    //取得済みならもうしない
 
                 var waitFor = LastKasasagiDate.AddSeconds(KasasagiIntervalSec);
                 var waitMsec = (waitFor - DateTime.Now).TotalMilliseconds;
@@ -583,7 +583,7 @@ namespace npva
         /// </remarks>
         private void AnalyzingLockContext(Action a)
         {
-            lock(lockObj)
+            lock (lockObj)
             {
                 notifyStartAnalyze();
                 a();
